@@ -8,7 +8,6 @@ body {
 }
 
 header {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,19 +58,60 @@ header {
   overflow: hidden;
 }
 
+#filter-by-region-dropdown {
+  cursor: pointer;
+}
+
 #dropdownbtn {
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  font-size: large;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
+  cursor: pointer;
 }
 
-#dropdown-content {
+#dropdown-arrow {
+  margin-left: 0.5rem;
+}
+
+
+#dropdown-content-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* align-content: center; */
+  gap: 0.5rem;
+  width: 11rem;
   position: absolute;
   height: 0px;
   overflow: hidden;
+  background-color: rgba(246, 240, 240, 0.958);
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
-@media screen and (width < 460px) {
+#dropdown-content-block-toggle {
+  padding: 0.5rem 0 0.5rem;
+  height: auto;
+}
+
+.dropdown-content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.dropdown-content:hover {
+  background-color: rgba(202, 179, 147, 0.368);
+  /* width: 100%; */
+  /* height: ; */
+  /* height: 100%; */
+  /* background-color: rgba(162, 158, 158, 0.653); */
+}
+
+@media screen and (width < 500px) {
   #search-filter-section {
     flex-direction: column;
     gap: 1rem;
