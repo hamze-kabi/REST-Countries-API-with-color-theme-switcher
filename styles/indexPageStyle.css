@@ -12,7 +12,7 @@ header {
   align-items: center;
   justify-content: space-between;
   margin: -0.5rem -0.5rem 0 -0.5rem;
-  padding: 0.5rem 1rem 0 1rem;
+  padding: 0.5rem 2rem 0 2rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -58,11 +58,11 @@ header {
   overflow: hidden;
 }
 
-#filter-by-region-dropdown {
+#filter-by-region-dropdown, #results-per-page-dropdown {
   cursor: pointer;
 }
 
-#dropdownbtn {
+#filter-by-region-dropdownbtn, #results-per-page-btn {
   display: flex;
   align-items: center;
   gap: 0.2rem;
@@ -72,19 +72,21 @@ header {
   cursor: pointer;
 }
 
-#dropdown-arrow {
+#results-per-page-btn {
+  font-size: medium;
+  padding: 0.3rem;
+}
+
+#filter-by-region-dropdown-arrow {
   margin-left: 0.5rem;
 }
 
 
-#dropdown-content-block {
+#filter-by-region-dropdown-content-block, #results-per-page-dropdown-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* align-content: center; */
-  gap: 0.5rem;
-  width: 11rem;
-  position: absolute;
+  gap: 0.2rem;
   height: 0px;
   overflow: hidden;
   background-color: rgba(246, 240, 240, 0.958);
@@ -92,24 +94,47 @@ header {
   border-bottom-left-radius: 1rem;
 }
 
-#dropdown-content-block-toggle {
+#filter-by-region-dropdown-content-block {
+  width: 11rem;
+  position: absolute;
+  height: 0px;
+  gap: 0.5rem;
+}
+
+#filter-by-region-dropdown-content-block-toggle, #results-per-page-dropdown-block-toggle {
   padding: 0.5rem 0 0.5rem;
   height: auto;
 }
 
-.dropdown-content {
+.filter-by-region-dropdown-content {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.dropdown-content:hover {
-  background-color: rgba(202, 179, 147, 0.368);
-  /* width: 100%; */
-  /* height: ; */
-  /* height: 100%; */
-  /* background-color: rgba(162, 158, 158, 0.653); */
+.results-per-page-number {
+  display: flex;
 }
+
+.filter-by-region-dropdown-content:hover, .results-per-page-number:hover {
+  background-color: rgba(202, 179, 147, 0.368);
+}
+
+#bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+}
+
+#results-per-page-block {
+  display: flex;
+}
+
 
 @media screen and (width < 500px) {
   #search-filter-section {

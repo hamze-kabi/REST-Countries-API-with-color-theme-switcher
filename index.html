@@ -23,26 +23,37 @@
       <input id="search-field" type="text" placeholder="Search for a country">
     </div>
     <div id="filter-by-region-dropdown">
-      <button id="dropdownbtn">Filter by region
-        <svg id="dropdown-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="12" height="12"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.45 3.45L6 6.9L2.55 3.45L1.5 4.5L6 9L10.5 4.5L9.45 3.45Z" fill="currentColor"></path></svg>
+      <button id="filter-by-region-dropdownbtn">Filter by region
+        <svg id="filter-by-region-dropdown-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="12" height="12"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.45 3.45L6 6.9L2.55 3.45L1.5 4.5L6 9L10.5 4.5L9.45 3.45Z" fill="currentColor"></path></svg>
       </button>
-      <div id="dropdown-content-block">
-        <div class="dropdown-content" id="dropdown-content-1">Remove filter</div>
-        <div class="dropdown-content" id="dropdown-content-2">Africa</div>
-        <div class="dropdown-content" id="dropdown-content-3">America</div>
-        <div class="dropdown-content" id="dropdown-content-4">Asia</div>
-        <div class="dropdown-content" id="dropdown-content-5">Europe</div>
-        <div class="dropdown-content" id="dropdown-content-6">Oceania</div>
+      <div id="filter-by-region-dropdown-content-block">
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-1">Remove filter</div>
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-2">Africa</div>
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-3">America</div>
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-4">Asia</div>
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-5">Europe</div>
+        <div class="filter-by-region-dropdown-content" id="filter-by-region-dropdown-content-6">Oceania</div>
       </div>
     </div>
   </section>
   <main id="container-block">
   </main>
   <section id="bottom">
-    <div id="pages"></div>
-    <div id="results-per-page">
-      <p>Results per page:</p>
-      <div id="results-per-page-drop-down"></div>
+    <div id="pages">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+    <div id="results">
+      <div id="results-per-page-block">Results per page:
+        <div id="results-per-page-dropdown">
+          <button id="results-per-page-btn">12
+            <svg id="dropdown-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="12" height="12"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.45 3.45L6 6.9L2.55 3.45L1.5 4.5L6 9L10.5 4.5L9.45 3.45Z" fill="currentColor"></path></svg>
+          </button>
+          <div id="results-per-page-dropdown-block">
+            <div class="results-per-page-number">12</div>
+            <div class="results-per-page-number">24</div>
+            <div class="results-per-page-number">48</div>
+            <div class="results-per-page-number">All</div>
+          </div>
+        </div>
+      </div>
       <p id="total">Total: <span id="total-number"> result(s)</span></p>
     </div>
   </section>
