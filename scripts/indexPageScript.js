@@ -2,6 +2,7 @@
 
 let countriesRaw;
 let countries = {}
+let resultsPerPage;
 
 async function fetchData() {
   try {
@@ -24,6 +25,14 @@ async function runFetchData() {
 // all the functions get nested inside initializeApp()
 function initializeApp() {
   extractCountriesInfo()
+  extractResultsPerPage()
+  createCountryCard()
+  createPagesNumbers()
+  paginate()
+  showHideDropdowns()
+  rotateDropdownArrow()
+  selectFilterByRegion()
+  selectResultsPerPage()
 }
 
 function extractCountriesInfo() {
@@ -35,7 +44,11 @@ function extractCountriesInfo() {
       "flag": country.flags.png
     }
   })
-  createCountryCard()
+}
+
+// number of country-cards displayed in each page equals resultsPerPage
+function extractResultsPerPage() {
+  resultsPerPage = document.getElementById("results-per-page-btn").innerText
 }
 
 function createCountryCard() {
@@ -53,8 +66,23 @@ function createCountryCard() {
     </div>
     `
   })
-  showHideDropdowns()
-  rotateDropdownArrow()
+}
+
+
+///////////////////////////////////////
+function createPagesNumbers() {
+  const pages = document.getElementById("pages")
+  const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  for (let i = 1; i <=numberOfPages; i++) {
+    pages.innerHTML += `
+    <button id="page-${i}">${i}</button>
+    `
+  }
+}
+
+//////////////////////////////////////
+function paginate() {
+  
 }
 
 // following buttons when clicked dropdown drops and when clicked again, dropdown hides
@@ -88,6 +116,28 @@ function rotateDropdownArrow() {
     })
   })
 }
+
+function selectFilterByRegion() {
+  let dropdownContent = document.querySelectorAll(".filter-by-region-dropdown-content")
+  let filterByRegionBtn = document.getElementById("filter-by-region-btn")
+  dropdownContent.forEach(content => {
+    content.addEventListener("click", function() {
+      filterByRegionBtn.innerHTML = content.innerHTML
+    })
+  })
+}
+
+function selectResultsPerPage() {
+  let dropdownContent = document.querySelectorAll(".results-per-page-number")
+  let resultsPerPageBtn = document.getElementById("results-per-page-btn")
+  dropdownContent.forEach(content => {
+    content.addEventListener("click", function() {
+      resultsPerPageBtn.innerHTML = content.innerHTML
+    })
+  })
+}
+
+// filter-by-region-btn
 
 // start app
 runFetchData()

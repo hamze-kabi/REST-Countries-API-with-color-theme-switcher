@@ -114,10 +114,16 @@ button {
 
 .results-per-page-number {
   display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .filter-by-region-dropdown-content:hover, .results-per-page-number:hover {
   background-color: rgba(202, 179, 147, 0.368);
+}
+
+.results-per-page-number, .filter-by-region-dropdown-content {
+  cursor: pointer;
 }
 
 #country-cards-container {
@@ -131,6 +137,7 @@ button {
   border-radius: 0.5rem;
   width: 100%;
   overflow: hidden;
+  display: none;
 }
 
 .flag-img {

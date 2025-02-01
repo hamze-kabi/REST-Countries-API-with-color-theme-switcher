@@ -1,15 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .item {
+            width: calc(33.33% - 10px);
+            background-color: lightblue;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #pagination-controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination-button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: lightgray;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .pagination-button.active {
+            background-color: gray;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <p id="ww"></p>
-  <script>
-    let a = [1,2,3,4,5,6]
-    document.getElementById("ww").innerHTML = a
-  </script>
+    <div id="items-container">
+        <!-- Example items -->
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+        <div class="item">Item 7</div>
+        <div class="item">Item 8</div>
+        <div class="item">Item 9</div>
+    </div>
+    <div id="pagination-controls"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.item');
+            const itemsContainer = document.getElementById('items-container');
+            const paginationControls = document.getElementById('pagination-controls');
+            const itemsPerPage = 3;
+            let currentPage = 1;
+            const totalPages = Math.ceil(items.length / itemsPerPage);
+
+            function displayItems(page) {
+                itemsContainer.innerHTML = '';
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                for (let i = start; i < end && i < items.length; i++) {
+                    itemsContainer.appendChild(items[i]);
+                }
+
+                updatePaginationControls();
+            }
+
+            function updatePaginationControls() {
+                paginationControls.innerHTML = '';
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.textContent = i;
+                    button.classList.add('pagination-button');
+                    if (i === currentPage) {
+                        button.classList.add('active');
+                    }
+                    button.addEventListener('click', () => {
+                        currentPage = i;
+                        displayItems(currentPage);
+                    });
+                    paginationControls.appendChild(button);
+                }
+            }
+
+            displayItems(currentPage);
+        });
+    </script>
 </body>
 </html>
