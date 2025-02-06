@@ -167,7 +167,11 @@ function selectFilterByRegionContent() {
   let filterByRegionBtnText = document.getElementById("filter-by-region-btn-text")
   dropdownContent.forEach(content => {
     content.addEventListener("click", function() {
-      filterByRegionBtnText.innerHTML = content.innerHTML
+      if (content.innerHTML == "Remove filter") {
+        filterByRegionBtnText.innerHTML = "Filter by region"
+      } else {
+        filterByRegionBtnText.innerHTML = content.innerHTML
+      }
     })
   })
 }
