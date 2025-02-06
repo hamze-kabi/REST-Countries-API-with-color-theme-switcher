@@ -29,10 +29,10 @@ function initializeApp() {
   createCountryCard()
   createPagesNumbers()
   paginate()
-  showHideDropdowns()
   rotateDropdownArrow()
-  selectFilterByRegion()
-  selectResultsPerPage()
+  showHideDropdowns()
+  selectFilterByRegionContent()
+  selectResultsPerPageContent()
 }
 
 function extractCountriesInfo() {
@@ -87,57 +87,98 @@ function paginate() {
 
 // following buttons when clicked dropdown drops and when clicked again, dropdown hides
 function showHideDropdowns() {
-  const dropdownBtn = document.querySelectorAll(".dropdown-btn")
-  dropdownBtn.forEach(dropdownBtn => {
-    dropdownBtn.addEventListener("click", function() {
-      const dropdownContent = dropdownBtn.parentElement.querySelector(".dropdown-content")
-      const dropdownContentStyle = getComputedStyle(dropdownContent)
-      if (dropdownContentStyle.height === '0px' || dropdownContentStyle.height === '') {
-        dropdownContent.style.height = dropdownContent.scrollHeight + 'px';
-    } else {
-        dropdownContent.style.height = '0px';
-    }
-    if (dropdownContentStyle.padding == "0px" || dropdownContentStyle.padding == "") {
-      dropdownContent.style.padding = "0.5rem 0 0.5rem"
-    } else {
-      dropdownContent.style.padding = "0px"
-    }
+  const dropDownBtns = Array.from(document.querySelectorAll(".dropdown-btn"))
+  const filterByRegionDropdownContent = Array.from(document.querySelectorAll(".filter-by-region-dropdown-content"))
+  const resultsPerPageNumber = Array.from(document.querySelectorAll(".results-per-page-number"))
+
+  const deconstructed = [
+    ...dropDownBtns,
+    ...filterByRegionDropdownContent,
+    ...resultsPerPageNumber
+  ]
+
+  deconstructed.forEach(el => {
+    el.addEventListener("click", function() {
+      // filter by region button
+      if (el.id == "filter-by-region-btn" || el.classList.contains("filter-by-region-dropdown-content")) {
+        const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
+        if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
+          filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
+          filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
+        } else {
+          filterByRegionDropdownContentBlock.style.height = "0px"
+          filterByRegionDropdownContentBlock.style.padding = "0px"
+        }
+      // results per page button
+      } else if (el.id == "results-per-page-btn" || el.classList.contains("results-per-page-number")){
+        const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
+        if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
+          resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
+          resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
+        } else {
+          resultsPerPageDropdownBlock.style.height = "0px"
+          resultsPerPageDropdownBlock.style.padding = "0px"
+        }
+      }
     })
   })
 }
 
-// .dropdwon-btn-svg rotates 180 degrees with each click
+// rotates arrows of dropdown buttons
 function rotateDropdownArrow() {
-  const dropdownBtns = document.querySelectorAll(".dropdown-btn")
-  dropdownBtns.forEach(dropdownBtn => {
-    dropdownBtn.addEventListener("click", function() {
-      const dropDownArrow = dropdownBtn.querySelector(".dropdown-arrow")
-      dropDownArrow.classList.toggle("dropdown-arrow-rotate")
+  const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
+  const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
+
+  // following elements when clicked filterByRegionArrow gets rotated
+  const filterByRegionLi = [
+    document.getElementById("filter-by-region-btn"),
+      ...Array.prototype.slice.call(
+        document.querySelectorAll(".filter-by-region-dropdown-content")
+      )
+    ]
+
+    // following elements when clicked resultsPerPageArrow gets rotated
+    const ResultsPerPageLi = [
+      document.getElementById("results-per-page-dropdown"),
+      ...Array.prototype.slice.call(
+        document.querySelectorAll(".results-per-page-number")
+      )
+    ]
+
+  // rotates filterByRegionArrow
+  filterByRegionLi.forEach(el => {
+    el.addEventListener("click", function() {
+      filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
     })
   })
+
+  // rotates resultsPerPageArrow
+  ResultsPerPageLi.forEach(el => {
+    el.addEventListener("click", function() {
+      resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
+    })
+  })  
 }
 
-function selectFilterByRegion() {
+function selectFilterByRegionContent() {
   let dropdownContent = document.querySelectorAll(".filter-by-region-dropdown-content")
-  let filterByRegionBtn = document.getElementById("filter-by-region-btn")
+  let filterByRegionBtnText = document.getElementById("filter-by-region-btn-text")
   dropdownContent.forEach(content => {
     content.addEventListener("click", function() {
-      filterByRegionBtn.innerHTML = content.innerHTML
+      filterByRegionBtnText.innerHTML = content.innerHTML
     })
   })
 }
 
-function selectResultsPerPage() {
-  let dropdownContent = document.querySelectorAll(".results-per-page-number")
-  let resultsPerPageBtn = document.getElementById("results-per-page-btn")
-  dropdownContent.forEach(content => {
+function selectResultsPerPageContent() {
+  const resultsPerPageNumber = document.querySelectorAll(".results-per-page-number")
+  const resultsPerPageBtnText = document.getElementById("results-per-page-btn-text")
+  resultsPerPageNumber.forEach(content => {
     content.addEventListener("click", function() {
-      resultsPerPageBtn.innerHTML = content.innerHTML
+      resultsPerPageBtnText.innerHTML = content.innerHTML
     })
   })
 }
-
-// filter-by-region-btn
 
 // start app
 runFetchData()

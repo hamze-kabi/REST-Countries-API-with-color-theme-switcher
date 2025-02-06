@@ -60,46 +60,9 @@
     </div>
     <div id="pagination-controls"></div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.item');
-            const itemsContainer = document.getElementById('items-container');
-            const paginationControls = document.getElementById('pagination-controls');
-            const itemsPerPage = 3;
-            let currentPage = 1;
-            const totalPages = Math.ceil(items.length / itemsPerPage);
-
-            function displayItems(page) {
-                itemsContainer.innerHTML = '';
-                const start = (page - 1) * itemsPerPage;
-                const end = start + itemsPerPage;
-
-                for (let i = start; i < end && i < items.length; i++) {
-                    itemsContainer.appendChild(items[i]);
-                }
-
-                updatePaginationControls();
-            }
-
-            function updatePaginationControls() {
-                paginationControls.innerHTML = '';
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const button = document.createElement('button');
-                    button.textContent = i;
-                    button.classList.add('pagination-button');
-                    if (i === currentPage) {
-                        button.classList.add('active');
-                    }
-                    button.addEventListener('click', () => {
-                        currentPage = i;
-                        displayItems(currentPage);
-                    });
-                    paginationControls.appendChild(button);
-                }
-            }
-
-            displayItems(currentPage);
-        });
+        [1, 2].forEach(el => {
+            console.log(el)
+        })
     </script>
 </body>
 </html>

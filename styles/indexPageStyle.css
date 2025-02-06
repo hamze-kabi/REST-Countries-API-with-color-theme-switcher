@@ -66,6 +66,7 @@ button {
 #filter-by-region-btn, #results-per-page-btn {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.2rem;
   font-size: large;
   padding: 1rem;
@@ -98,6 +99,18 @@ button {
   border-bottom-left-radius: 1rem;
   position: absolute;
   transition: height 0.2s, padding 0.2s;
+}
+
+#filter-by-region-whole {
+  min-width: 11.125rem;
+}
+
+#filter-by-region-btn {
+  width: 100%;
+}
+
+.btn-dropdown-text {
+  margin: 0px;
 }
 
 #filter-by-region-dropdown-content-block {
