@@ -139,11 +139,12 @@ function rotateDropdownArrow() {
 
     // following elements when clicked resultsPerPageArrow gets rotated
     const ResultsPerPageLi = [
-      document.getElementById("results-per-page-dropdown"),
+      document.getElementById("results-per-page-btn"),
       ...Array.prototype.slice.call(
         document.querySelectorAll(".results-per-page-number")
       )
     ]
+    console.log(ResultsPerPageLi)
 
   // rotates filterByRegionArrow
   filterByRegionLi.forEach(el => {
@@ -155,6 +156,7 @@ function rotateDropdownArrow() {
   // rotates resultsPerPageArrow
   ResultsPerPageLi.forEach(el => {
     el.addEventListener("click", function() {
+      console.log(el)
       resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
     })
   })  
