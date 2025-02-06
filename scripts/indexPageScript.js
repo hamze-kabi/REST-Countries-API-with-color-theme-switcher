@@ -3,6 +3,7 @@
 let countriesRaw;
 let countries = {}
 let resultsPerPage;
+let currentPage = 1;
 
 async function fetchData() {
   try {
@@ -28,6 +29,7 @@ function initializeApp() {
   extractResultsPerPage()
   createCountryCard()
   createPagesNumbers()
+  selectPage()
   paginate()
   rotateDropdownArrow()
   showHideDropdowns()
@@ -55,7 +57,7 @@ function createCountryCard() {
   let countryCardsContainer = document.getElementById("country-cards-container")
   Object.entries(countries).forEach(([key, value], idx) => {
     countryCardsContainer.innerHTML += 
-    `<div id="${key}" class="country-card">
+    `<div id="country-card-${idx}" class="country-card">
       <img class="flag-img" id="img-${key}" src="${value.flag}" alt="${value.flag}">
       <div id="country-card-text-box-${key}" class="country-card-text-box">
         <h3>${key}</h3>
@@ -69,20 +71,43 @@ function createCountryCard() {
 }
 
 
-///////////////////////////////////////
+// related to pages
 function createPagesNumbers() {
   const pages = document.getElementById("pages")
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   for (let i = 1; i <=numberOfPages; i++) {
     pages.innerHTML += `
-    <button id="page-${i}">${i}</button>
+    <button class="page-number" id="page-${i}">${i}</button>
     `
   }
 }
 
-//////////////////////////////////////
+// self explainatory
+function selectPage() {
+  const pageNumbers = document.querySelectorAll(".page-number")
+  pageNumbers.forEach(page => {
+    page.addEventListener("click", function() {
+      currentPage = page.innerHTML
+      paginate()
+    })
+  })
+}
+
+// before each new display of country cards, all the country cards become diplay: none
+function resetCountryCardsDisplay() {
+  document.querySelectorAll(".country-card").forEach(card => {
+    card.style.display = "none"
+  })
+}
+
+// devide country cards into different pages, based on the number of results per page
 function paginate() {
-  
+  resetCountryCardsDisplay()
+  let lowerLimit = (currentPage - 1) * +resultsPerPage
+  let upperLimit = currentPage * +resultsPerPage
+  for (let i = lowerLimit; i < upperLimit; i++) {
+    document.getElementById(`country-card-${i}`).style.display = "block"
+  }
 }
 
 // following buttons when clicked dropdown drops and when clicked again, dropdown hides
@@ -144,7 +169,6 @@ function rotateDropdownArrow() {
         document.querySelectorAll(".results-per-page-number")
       )
     ]
-    console.log(ResultsPerPageLi)
 
   // rotates filterByRegionArrow
   filterByRegionLi.forEach(el => {
@@ -156,7 +180,6 @@ function rotateDropdownArrow() {
   // rotates resultsPerPageArrow
   ResultsPerPageLi.forEach(el => {
     el.addEventListener("click", function() {
-      console.log(el)
       resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
     })
   })  
@@ -176,7 +199,9 @@ function selectFilterByRegionContent() {
   })
 }
 
+////////////////////////////////////////////////////////////////////////////////// fix it
 function selectResultsPerPageContent() {
+  console.log(444444444444)
   const resultsPerPageNumber = document.querySelectorAll(".results-per-page-number")
   const resultsPerPageBtnText = document.getElementById("results-per-page-btn-text")
   resultsPerPageNumber.forEach(content => {
@@ -184,6 +209,14 @@ function selectResultsPerPageContent() {
       resultsPerPageBtnText.innerHTML = content.innerHTML
     })
   })
+  let els = document.querySelectorAll(".country-card")
+  let yo = false
+  els.forEach(el => {
+    if (el.style.display == "block") {
+      yo = true
+    }
+  })
+  console.log(yo)
 }
 
 // start app

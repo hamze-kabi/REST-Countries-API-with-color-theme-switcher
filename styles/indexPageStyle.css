@@ -143,6 +143,7 @@ button {
   display: grid;
   justify-items: center;
   gap: 2rem;
+  margin: 1rem auto;
 }
 
 .country-card {
