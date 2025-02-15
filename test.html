@@ -46,6 +46,7 @@
     </style>
 </head>
 <body>
+    <input type="search" name="search" id="search" placeholder="wwwww">
     <div id="items-container">
         <!-- Example items -->
         <div class="item">Item 1</div>
@@ -60,8 +61,9 @@
     </div>
     <div id="pagination-controls"></div>
     <script>
-        [1, 2].forEach(el => {
-            console.log(el)
+        let yo = document.getElementById("search")
+        yo.addEventListener("input", function() {
+            console.log(yo.value)
         })
     </script>
 </body>
