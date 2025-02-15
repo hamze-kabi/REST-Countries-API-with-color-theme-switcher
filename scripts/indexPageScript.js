@@ -332,6 +332,35 @@ function extractCountriesBySearchedVal() {
   })
 }
 
+function goTocountryPage() {
+  document.querySelectorAll(".country-card").forEach(countryCard => {
+    countryCard.addEventListener("click", function() {
+      let queryString = `?${countryCard.id}`
+      window.location.href = "country-page.html" + queryString
+    })
+  })
+}
+
+
+
+// const queryString = `?theme=${encodeURIComponent(theme)}&numberOfPlayers=${encodeURIComponent(numberOfPlayers)}&gridSize=${encodeURIComponent(gridSize)}`
+// window.location.href = "gamepage.html" + queryString  //  parameters get passed with url to the next page
+// gets settings parameters sent by index.html
+// function getQueryParam() {
+//   console.log("getQueryParam() called, getting params")
+//   const params = {}
+//   const queryString = window.location.search.slice(1)
+//   const pairs = queryString.split("&")
+//   pairs.forEach(pair => {
+//     let [key, value] = pair.split("=")
+//     params[encodeURIComponent(key)] = encodeURIComponent(value || "")
+//   })
+//   return params
+// };
+
+
+
+
 // createCountryCard()
 // extractResultsPerPage()
 // createPagesNumbers()
@@ -370,16 +399,6 @@ function managePaginate(state="") {
     selectPage()
   } else if (state == "change-filter-by-region") {
     console.log("managePaginate(state=), state = change-filter-by-region")
-  // createCountryCard()
-  // extractResultsPerPage()
-  // createPagesNumbers()
-  // clearPageNumbers()
-  // selectPage()
-  // resetCountryCardsDisplay()
-  // paginate()
-  // selectResultsPerPageContent()
-  // selectFilterByRegionContent()
-
     resetCountryCardsDisplay()
     clearPageNumbers()
     extractCountriesByRegion()
@@ -390,8 +409,6 @@ function managePaginate(state="") {
     selectPage()
     paginate()
     totalNumberOfResults()
-    // console.log(currentPage)
-    // resetCountriesObj()
   } else if (state == "search") {
     console.log("managePaginate(state=), state = search")
     resetCountryCardsDisplay()
@@ -404,10 +421,6 @@ function managePaginate(state="") {
     selectPage()
     paginate()
     totalNumberOfResults()
-    // resetCountryCardsDisplay()
-    // clearPageNumbers()
-    // extractResultsPerPage()
-    // selectCountriesObj()
   }
 }
 
@@ -429,6 +442,7 @@ function initializeApp() {
   selectFilterByRegionContent()
   selectResultsPerPageContent()
   extractSearch()
+  goTocountryPage()
 }
 
 // start app

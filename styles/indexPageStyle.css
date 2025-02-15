@@ -152,6 +152,7 @@ button {
   width: 100%;
   overflow: hidden;
   display: none;
+  cursor: pointer;
 }
 
 .flag-img {
