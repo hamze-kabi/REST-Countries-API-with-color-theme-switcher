@@ -28,16 +28,64 @@ async function runFetchData() {
   }
 }
 
+/* 
+  <p id="native-name">Native Name: </p>
+  <p id="population">Population: </p>
+  <p id="region">Region: </p>
+  <p id="sub-region">Sub region: </p>
+  <p id="capital">Capital: </p>
+  <p id="currency">Currencies: </p>
+  <p id="language">Languages: </p>
+</section>
+<section id="border-countries"> */
+
 /////////////////////////////////////////////////////////////////
 function extractCountriesInfo() {
   console.log("extractCountriesInfo() called")
   let deconstructedCapital;
   countriesRaw.forEach(country => {
+    let nativeName;
+    try {
+      nativeName = Object.values(country.name.nativeName)[0].common
+    } catch(error) {
+      nativeName = country.name.common
+    }
+    let subRegion = country.subregion
+    if (subRegion == undefined) {
+      subRegion = country.region
+    }
+
+    let currencies;
+    try {
+      currencies = Object.values(country.currencies)[0].name
+    } catch(error) {
+      currencies = "none"
+    }
+
+    let languages;
+    try {
+      languages = Object.values(country.languages)      
+    } catch(error) {
+      languages = "none"
+    }
+
+    let borders;
+    if (country.borders == undefined) {
+      borders = "None"
+    } else {
+      borders = country.borders
+    }
+    // some seem extras
     allCountries[country.name.common] = {
       "Population": country.population, // some are 0
       "Region": country.region,
       "Capital": country.capital, // some have more than one
-      "flag": country.flags.png
+      "flag": country.flags.png,
+      "nativeName": nativeName,
+      "subregion": subRegion,
+      "currencies": currencies,
+      "languages": languages,
+      "borders": borders
     }
   })
 }
@@ -67,9 +115,14 @@ function createCountryCard() {
       <img class="flag-img" id="img-${key}" src="${value.flag}" alt="${value.flag}">
       <div id="country-card-text-box-${key}" class="country-card-text-box">
         <h3>${key}</h3>
-        <p>Population: ${value.Population}</p>
-        <p class="region">Region: ${value.Region}</p>
-        <p>Capital: ${value.Capital}</p>
+        <div class="country-card-info">Population: <p class="population" >${value.Population}</p></div>
+        <div class="country-card-info">Region: <p class="region">${value.Region}</p></div>
+        <div class="country-card-info">Capital: <p class="capital">${value.Capital}</p></div>
+        <p class="nativeName">${value.nativeName}</p>
+        <p class="subregion">${value.subregion}</p>
+        <p class="currencies">${value.currencies}</p>
+        <p class="languages">${value.languages}</p>
+        <p class="borders">${value.borders}</p>
       </div>
     </div>
     `
@@ -335,28 +388,46 @@ function extractCountriesBySearchedVal() {
 function goTocountryPage() {
   document.querySelectorAll(".country-card").forEach(countryCard => {
     countryCard.addEventListener("click", function() {
-      let queryString = `?${countryCard.id}`
-      window.location.href = "country-page.html" + queryString
+    let countryName = countryCard.id
+    let flagImg = countryCard.querySelector(".flag-img").src 
+    let population = countryCard.querySelector(".population").innerHTML
+    let region = countryCard.querySelector(".region").innerHTML
+    let capital = countryCard.querySelector(".capital").innerHTML
+    let nativeName = countryCard.querySelector(".nativeName").innerHTML
+    let subregion = countryCard.querySelector(".subregion").innerHTML
+    let currencies = countryCard.querySelector(".currencies").innerHTML
+    let languages = countryCard.querySelector(".languages").innerHTML
+    let borders = countryCard.querySelector(".borders").innerHTML
+
+    localStorage.setItem('countryName', countryName)
+    localStorage.setItem("flagImg", flagImg)
+    localStorage.setItem("population", population)
+    localStorage.setItem("region", region)
+    localStorage.setItem("capital", capital)
+    localStorage.setItem("nativeName", nativeName)
+    localStorage.setItem("subregion", subregion)
+    localStorage.setItem("currencies", currencies)
+    localStorage.setItem("languages", languages)
+    localStorage.setItem("borders", borders)
+    window.location.href = "country-page.html"
     })
   })
 }
 
 
+// "Population": country.population, // some are 0
+// "Region": country.region,
+// "Capital": country.capital, // some have more than one
+// "flag": country.flags.png,
+// "native-name": nativeName,
+// "subregion": subRegion,
+// "currencies": currencies,
+// "languages": languages,
+
 
 // const queryString = `?theme=${encodeURIComponent(theme)}&numberOfPlayers=${encodeURIComponent(numberOfPlayers)}&gridSize=${encodeURIComponent(gridSize)}`
 // window.location.href = "gamepage.html" + queryString  //  parameters get passed with url to the next page
 // gets settings parameters sent by index.html
-// function getQueryParam() {
-//   console.log("getQueryParam() called, getting params")
-//   const params = {}
-//   const queryString = window.location.search.slice(1)
-//   const pairs = queryString.split("&")
-//   pairs.forEach(pair => {
-//     let [key, value] = pair.split("=")
-//     params[encodeURIComponent(key)] = encodeURIComponent(value || "")
-//   })
-//   return params
-// };
 
 
 

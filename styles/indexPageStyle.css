@@ -164,6 +164,32 @@ button {
   padding: 1rem;
 }
 
+.country-card-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nativeName {
+  display: none;
+}
+
+.subregion {
+  display: none;
+}
+
+.currencies {
+  display: none;
+}
+
+.languages {
+  display: none;
+}
+
+.borders {
+  display: none;
+}
+
 #bottom {
   display: flex;
   flex-direction: column;

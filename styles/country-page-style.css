@@ -1,0 +1,47 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0.5rem;
+  width: 100vw;
+  /* margin: 0; */
+  /* height: 100%; */
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -0.5rem -0.5rem 0 -0.5rem;
+  padding: 0.5rem 3rem 0 2rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#go-back-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+}
+
+#country {
+  display: grid;
+  grid-template-areas: 
+  "flag country-name"
+  "flag country-details"
+  "flag border-countries";
+}
+
+#flag {
+  grid-area: flag;
+}
+
+#country-name {
+  grid-area: country-name;
+}
+
+#country-details {
+  grid-area: country-details;
+}
+
+#border {
+  grid-area: border-countries;
+}
