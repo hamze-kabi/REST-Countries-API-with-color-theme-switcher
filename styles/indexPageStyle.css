@@ -19,6 +19,7 @@ header {
 #dark-mode {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 #dark-mode-icon {
@@ -63,7 +64,8 @@ button {
   cursor: pointer;
 }
 
-#filter-by-region-btn, #results-per-page-btn {
+/* , #results-per-page-btn */
+#filter-by-region-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -74,9 +76,56 @@ button {
   cursor: pointer;
 }
 
-#results-per-page-btn {
+/* #results-per-page-btn {
   font-size: medium;
   padding: 0.3rem;
+} */
+
+#results-per-page-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  font-family: "Amazon Ember",Arial,sans-serif;
+  font-size: 14px;
+  height: 29px;
+  font-size: 13px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0.3rem;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+#results-per-page-btn:active {
+  border-bottom-color: #a2a6ac;
+}
+
+#results-per-page-btn:active:hover {
+  border-bottom-color: #a2a6ac;
+}
+
+#results-per-page-btn:hover {
+  border-color: #a2a6ac #979aa1 #82858a;
+}
+
+#results-per-page-btn:focus {
+  border-color: #e77600;
+  box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+  outline: 0;
 }
 
 #filter-by-region-arrow {
@@ -194,6 +243,29 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.page-number {
+  background-color: rgba(51, 51, 51, 0.05);
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 1rem auto;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 #results {

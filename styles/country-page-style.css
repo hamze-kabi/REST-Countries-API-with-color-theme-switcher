@@ -42,6 +42,18 @@ header {
   grid-area: country-details;
 }
 
+.border {
+  cursor: pointer;
+}
+
 #border {
   grid-area: border-countries;
+}
+
+#go-back-btn {
+  cursor: pointer;
+}
+
+#dark-mode {
+  cursor: pointer;
 }

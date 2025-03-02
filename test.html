@@ -3,67 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagination Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
-        #items-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .item {
-            width: calc(33.33% - 10px);
-            background-color: lightblue;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        #pagination-controls {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .pagination-button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            background-color: lightgray;
-            border: none;
-            border-radius: 3px;
-        }
-
-        .pagination-button.active {
-            background-color: gray;
-            color: white;
-        }
-    </style>
 </head>
 <body>
-    <input type="search" name="search" id="search" placeholder="wwwww">
-    <div id="items-container">
-        <!-- Example items -->
-        <div class="item">Item 1</div>
-        <div class="item">Item 2</div>
-        <div class="item">Item 3</div>
-        <div class="item">Item 4</div>
-        <div class="item">Item 5</div>
-        <div class="item">Item 6</div>
-        <div class="item">Item 7</div>
-        <div class="item">Item 8</div>
-        <div class="item">Item 9</div>
-    </div>
-    <div id="pagination-controls"></div>
+    <p id="rr">yyyyyyyyy</p>
+    <p>wwwwwwwwwww</p>
     <script>
-        let yo = document.getElementById("search")
-        yo.addEventListener("input", function() {
-            console.log(yo.value)
+        const yo = document.querySelectorAll("body *:not(#rr)")
+        yo.addEventListener("click", function() {
+            document.getElementById("rr").style.display = "none"
         })
     </script>
 </body>

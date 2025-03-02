@@ -133,7 +133,13 @@ function goToBorderCountry() {
   })
 }
 
+function backButton() {
+  document.getElementById("go-back-btn").addEventListener("click", function() {
+    window.history.back()
+  })
+}
+
 extractLocalStorageData()
 insertCountryCardDetails()
 goToBorderCountry()
-
+backButton()

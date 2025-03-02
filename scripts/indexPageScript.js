@@ -232,41 +232,59 @@ function paginate() {
 // following buttons when clicked dropdown drops and when clicked again, dropdown hides
 function showHideDropdowns() {
   console.log("showHideDropdowns() called")
-  const dropDownBtns = Array.from(document.querySelectorAll(".dropdown-btn"))
-  const filterByRegionDropdownContent = Array.from(document.querySelectorAll(".filter-by-region-dropdown-content"))
-  const resultsPerPageNumber = Array.from(document.querySelectorAll(".results-per-page-number"))
 
-  const deconstructed = [
-    ...dropDownBtns,
-    ...filterByRegionDropdownContent,
-    ...resultsPerPageNumber
-  ]
+  const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
+  const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
 
-  deconstructed.forEach(el => {
-    el.addEventListener("click", function() {
-      console.log("Dropdown button / dropdown content selected")
-      // filter by region button
-      if (el.id == "filter-by-region-btn" || el.classList.contains("filter-by-region-dropdown-content")) {
-        const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
-        if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
-          filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
-          filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
-        } else {
-          filterByRegionDropdownContentBlock.style.height = "0px"
-          filterByRegionDropdownContentBlock.style.padding = "0px"
-        }
-      // results per page button
-      } else if (el.id == "results-per-page-btn" || el.classList.contains("results-per-page-number")){
-        const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
-        if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
-          resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
-          resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
-        } else {
-          resultsPerPageDropdownBlock.style.height = "0px"
-          resultsPerPageDropdownBlock.style.padding = "0px"
-        }
+  function showHideFilterByRegionDropdownContentBlock(onlyHide=false) {
+    if (onlyHide) {
+      if (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px") {
+        filterByRegionDropdownContentBlock.style.height = "0px"
+        filterByRegionDropdownContentBlock.style.padding = "0px"              
       }
-    })
+    } else {
+      if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
+        filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
+        filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
+      } else {
+        filterByRegionDropdownContentBlock.style.height = "0px"
+        filterByRegionDropdownContentBlock.style.padding = "0px"        
+      }
+    }
+  }
+
+  function showHideResultsPerPageDropdownBlock(onlyHide=false) {
+    if (onlyHide) {
+      if (getComputedStyle(resultsPerPageDropdownBlock).height != "0px") {
+        resultsPerPageDropdownBlock.style.height = "0px"
+        resultsPerPageDropdownBlock.style.padding = "0px"        
+      }
+    } else {
+      if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
+        resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
+        resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
+      } else {
+        resultsPerPageDropdownBlock.style.height = "0px"
+        resultsPerPageDropdownBlock.style.padding = "0px"
+      }
+    }
+  }
+
+  document.addEventListener("click", function(event) {
+    if (event.target.closest("#filter-by-region-btn")) {
+      showHideFilterByRegionDropdownContentBlock()
+    } else {
+      showHideFilterByRegionDropdownContentBlock(true)
+    }
+  })
+
+  // results-per-page-btn
+  document.addEventListener("click", function(event) {
+    if (event.target.closest("#results-per-page-btn")) {
+      showHideResultsPerPageDropdownBlock()      
+    } else {
+      showHideResultsPerPageDropdownBlock(true)
+    }
   })
 }
 
