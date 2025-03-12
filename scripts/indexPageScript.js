@@ -28,18 +28,6 @@ async function runFetchData() {
   }
 }
 
-/* 
-  <p id="native-name">Native Name: </p>
-  <p id="population">Population: </p>
-  <p id="region">Region: </p>
-  <p id="sub-region">Sub region: </p>
-  <p id="capital">Capital: </p>
-  <p id="currency">Currencies: </p>
-  <p id="language">Languages: </p>
-</section>
-<section id="border-countries"> */
-
-/////////////////////////////////////////////////////////////////
 function extractCountriesInfo() {
   console.log("extractCountriesInfo() called")
   let deconstructedCapital;
@@ -129,6 +117,16 @@ function createCountryCard() {
   })
 }
 
+///////////////////////////////////////////////
+function darkMode() {
+  document.getElementById("dark-mode").addEventListener("click", function() {
+    const body = document.querySelector("body")
+    const header = document.querySelector("header")
+    const searchFilterSection = document.getElementById("search-filter-section")
+
+  })
+}
+
 // number of country-cards displayed in each page equals resultsPerPage
 function extractResultsPerPage() {
   console.log("extractResultsPerPage() called")
@@ -143,12 +141,98 @@ function createPagesNumbers() {
   console.log("createPageNumbers() called")
   const pages = document.getElementById("pages")
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  pages.innerHTML += `
+    <button class="page-number" id="prev"><< Prev</button>
+  `  
   for (let i = 1; i <=numberOfPages; i++) {
+    if (i == numberOfPages) {
+      pages.innerHTML += `
+      <button class="page-number" id="three-dots-right">...</button>
+      `
+    }
     pages.innerHTML += `
     <button class="page-number" id="page-${i}">${i}</button>
     `
+    if (i == 1) {
+      pages.innerHTML += `
+      <button class="page-number" id="three-dots-left">...</button>
+      `
+    }
+  }
+  pages.innerHTML += `
+  <button class="page-number" id="next">Next >></button>
+  `
+  hideExtraPages()
+}
+
+////////////////////////////////////
+function hideExtraPages() {
+  console.log("hideExtraPages() called")
+  const pages = document.querySelectorAll(".page-number")
+  const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  const pagesNums = [...Array(numberOfPages+1).keys()].slice(1)
+  // currentPage = +currentPage
+  
+  pages.forEach(page => {
+    if (page.id != "prev" && page.id != "next") {
+      page.style.display = "none"
+    }
+  })
+  if (numberOfPages > 8) {
+    if ([1, 2, 3].includes(currentPage)) {
+      // 1,2,3
+      // 1,2,3,4,5...20
+      for (let id of [1, 2, 3]) {
+        document.getElementById(`page-${id}`).style.display = ""
+      }
+      document.getElementById(`three-dots-right`).style.display = ""
+      document.getElementById(`page-${numberOfPages}`).style.display = ""
+    } else if (currentPage == 4) {
+        // 4
+        // 1,2,3,4,5,6...20
+        for (let id of [1, 2, 3, 4, 5, 6]) {
+          document.getElementById(`page-${id}`).style.display = ""
+        } 
+        document.getElementById(`three-dots-right`).style.display = ""
+        document.getElementById(`page-${numberOfPages}`).style.display = ""
+      }
+    else if (currentPage == 5) {
+      // 5
+      // 1,2,3,4,5,6,7...20
+      for (let id of [1, 2, 3, 4, 5, 6, 7]) {
+        document.getElementById(`page-${id}`).style.display = ""
+      }
+      document.getElementById(`three-dots-right`).style.display = ""
+      document.getElementById(`page-${numberOfPages}`).style.display = ""
+    } else if (currentPage == pagesNums.length - 3) {
+      // 17
+      // 1...15,16,17,18,19,20
+      document.getElementById(`page-1`).style.display = ""
+      for (let id = pagesNums.length - 6; id <= pagesNums.length; id++) {
+        document.getElementById(`page-${id}`).style.display = ""        
+      }
+      document.getElementById(`three-dots-left`).style.display = ""
+    } else if (pagesNums.slice(pagesNums.length - 3).includes(+currentPage)) {
+      // 18,19,20
+      // 1...16,17,18,19,20
+      document.getElementById(`page-1`).style.display = ""
+      for (let id of pagesNums.slice(pagesNums.length - 5)) {
+        document.getElementById(`page-${id}`).style.display = ""
+      }
+      document.getElementById(`three-dots-left`).style.display = ""
+    } else {
+      document.getElementById(`three-dots-left`).style.display = ""
+      document.getElementById(`three-dots-right`).style.display = ""
+      document.getElementById(`page-1`).style.display = ""
+      document.getElementById(`page-${numberOfPages}`).style.display = ""
+      for (let id = +currentPage - 2; id <= +currentPage + 2; id++) {
+        // 1...n,n,n,n,n...20
+        document.getElementById(`page-${id}`).style.display = ""
+      }
+    }
   }
 }
+
 
 // before each call of createPageNumbers(), this function gets called to delete previous pages numbers for new ones
 function clearPageNumbers() {
@@ -162,9 +246,19 @@ function selectPage() {
   const pageNumbers = document.querySelectorAll(".page-number")
   pageNumbers.forEach(page => {
     page.addEventListener("click", function() {
-      console.log("Page number selected")
-      currentPage = page.innerHTML
-      managePaginate("select-page")
+      const nonNumPages = ["...", "&lt;&lt; Prev", "Next &gt;&gt;"]
+      if (!nonNumPages.includes(page.innerHTML)) {
+        console.log("Page number selected")
+        currentPage = page.innerHTML
+        managePaginate("select-page")
+      } else if (page.innerHTML == "&lt;&lt; Prev") {
+        try {
+          currentPage = currentPage - 1
+          managePaginate("select-page")
+        } catch(error) {
+          console.log(error)
+        }
+      }
     })
   })
 }
@@ -181,7 +275,7 @@ function resetCountryCardsDisplay() {
     card.style.display = "none"
   })
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
 // devide country cards into different pages, based on the number of results per page
 function paginate() {
   let lowerLimit = (currentPage - 1) * +resultsPerPage
@@ -477,6 +571,7 @@ function managePaginate(state="") {
     resetCountryCardsDisplay()
     extractResultsPerPage()
     paginate()
+    hideExtraPages()
   } else if (state == "change-results-per-page") {
     console.log("managePaginate(state=), state = change-results-per-page")
     resetCountryCardsDisplay()
@@ -532,6 +627,7 @@ function initializeApp() {
   selectResultsPerPageContent()
   extractSearch()
   goTocountryPage()
+  darkMode()
 }
 
 // start app
