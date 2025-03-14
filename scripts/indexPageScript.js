@@ -167,70 +167,70 @@ function createPagesNumbers() {
 
 ////////////////////////////////////
 function hideExtraPages() {
-  console.log("hideExtraPages() called")
-  const pages = document.querySelectorAll(".page-number")
-  const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
-  const pagesNums = [...Array(numberOfPages+1).keys()].slice(1)
-  // currentPage = +currentPage
+  console.log("hideExtraPages() called", 1111111111111)
+  // const pages = document.querySelectorAll(".page-number")
+  // const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  // const pagesNums = [...Array(numberOfPages+1).keys()].slice(1)
+  // // currentPage = +currentPage
   
-  pages.forEach(page => {
-    if (page.id != "prev" && page.id != "next") {
-      page.style.display = "none"
-    }
-  })
-  if (numberOfPages > 8) {
-    if ([1, 2, 3].includes(currentPage)) {
-      // 1,2,3
-      // 1,2,3,4,5...20
-      for (let id of [1, 2, 3]) {
-        document.getElementById(`page-${id}`).style.display = ""
-      }
-      document.getElementById(`three-dots-right`).style.display = ""
-      document.getElementById(`page-${numberOfPages}`).style.display = ""
-    } else if (currentPage == 4) {
-        // 4
-        // 1,2,3,4,5,6...20
-        for (let id of [1, 2, 3, 4, 5, 6]) {
-          document.getElementById(`page-${id}`).style.display = ""
-        } 
-        document.getElementById(`three-dots-right`).style.display = ""
-        document.getElementById(`page-${numberOfPages}`).style.display = ""
-      }
-    else if (currentPage == 5) {
-      // 5
-      // 1,2,3,4,5,6,7...20
-      for (let id of [1, 2, 3, 4, 5, 6, 7]) {
-        document.getElementById(`page-${id}`).style.display = ""
-      }
-      document.getElementById(`three-dots-right`).style.display = ""
-      document.getElementById(`page-${numberOfPages}`).style.display = ""
-    } else if (currentPage == pagesNums.length - 3) {
-      // 17
-      // 1...15,16,17,18,19,20
-      document.getElementById(`page-1`).style.display = ""
-      for (let id = pagesNums.length - 6; id <= pagesNums.length; id++) {
-        document.getElementById(`page-${id}`).style.display = ""        
-      }
-      document.getElementById(`three-dots-left`).style.display = ""
-    } else if (pagesNums.slice(pagesNums.length - 3).includes(+currentPage)) {
-      // 18,19,20
-      // 1...16,17,18,19,20
-      document.getElementById(`page-1`).style.display = ""
-      for (let id of pagesNums.slice(pagesNums.length - 5)) {
-        document.getElementById(`page-${id}`).style.display = ""
-      }
-      document.getElementById(`three-dots-left`).style.display = ""
-    } else {
-      document.getElementById(`three-dots-left`).style.display = ""
-      document.getElementById(`three-dots-right`).style.display = ""
-      document.getElementById(`page-1`).style.display = ""
-      document.getElementById(`page-${numberOfPages}`).style.display = ""
-      for (let id = +currentPage - 2; id <= +currentPage + 2; id++) {
-        // 1...n,n,n,n,n...20
-        document.getElementById(`page-${id}`).style.display = ""
-      }
-    }
-  }
+  // pages.forEach(page => {
+  //   if (page.id != "prev" && page.id != "next") {
+  //     page.style.display = "none"
+  //   }
+  // })
+  // if (numberOfPages > 8) {
+  //   if ([1, 2, 3].includes(currentPage)) {
+  //     // 1,2,3
+  //     // 1,2,3,4,5...20
+  //     for (let id of [1, 2, 3]) {
+  //       document.getElementById(`page-${id}`).style.display = ""
+  //     }
+  //     document.getElementById(`three-dots-right`).style.display = ""
+  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
+  //   } else if (currentPage == 4) {
+  //       // 4
+  //       // 1,2,3,4,5,6...20
+  //       for (let id of [1, 2, 3, 4, 5, 6]) {
+  //         document.getElementById(`page-${id}`).style.display = ""
+  //       } 
+  //       document.getElementById(`three-dots-right`).style.display = ""
+  //       document.getElementById(`page-${numberOfPages}`).style.display = ""
+  //     }
+  //   else if (currentPage == 5) {
+  //     // 5
+  //     // 1,2,3,4,5,6,7...20
+  //     for (let id of [1, 2, 3, 4, 5, 6, 7]) {
+  //       document.getElementById(`page-${id}`).style.display = ""
+  //     }
+  //     document.getElementById(`three-dots-right`).style.display = ""
+  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
+  //   } else if (currentPage == pagesNums.length - 3) {
+  //     // 17
+  //     // 1...15,16,17,18,19,20
+  //     document.getElementById(`page-1`).style.display = ""
+  //     for (let id = pagesNums.length - 6; id <= pagesNums.length; id++) {
+  //       document.getElementById(`page-${id}`).style.display = ""        
+  //     }
+  //     document.getElementById(`three-dots-left`).style.display = ""
+  //   } else if (pagesNums.slice(pagesNums.length - 3).includes(+currentPage)) {
+  //     // 18,19,20
+  //     // 1...16,17,18,19,20
+  //     document.getElementById(`page-1`).style.display = ""
+  //     for (let id of pagesNums.slice(pagesNums.length - 5)) {
+  //       document.getElementById(`page-${id}`).style.display = ""
+  //     }
+  //     document.getElementById(`three-dots-left`).style.display = ""
+  //   } else {
+  //     document.getElementById(`three-dots-left`).style.display = ""
+  //     document.getElementById(`three-dots-right`).style.display = ""
+  //     document.getElementById(`page-1`).style.display = ""
+  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
+  //     for (let id = +currentPage - 2; id <= +currentPage + 2; id++) {
+  //       // 1...n,n,n,n,n...20
+  //       document.getElementById(`page-${id}`).style.display = ""
+  //     }
+  //   }
+  // }
 }
 
 
