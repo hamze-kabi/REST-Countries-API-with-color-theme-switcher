@@ -142,42 +142,130 @@ function createPagesNumbers() {
   const pages = document.getElementById("pages")
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   pages.innerHTML += `
-    <button class="page-number" id="prev"><< Prev</button>
+    <button class="page-number" id="<<"><<</button>
+    <button class="page-number" id="prev">Prev</button>
   `  
   for (let i = 1; i <=numberOfPages; i++) {
-    if (i == numberOfPages) {
-      pages.innerHTML += `
-      <button class="page-number" id="three-dots-right">...</button>
-      `
-    }
     pages.innerHTML += `
     <button class="page-number" id="page-${i}">${i}</button>
     `
-    if (i == 1) {
-      pages.innerHTML += `
-      <button class="page-number" id="three-dots-left">...</button>
-      `
-    }
   }
   pages.innerHTML += `
-  <button class="page-number" id="next">Next >></button>
+  <button class="page-number" id="next">Next</button>
+  <button class="page-number" id=">>">>></button>
   `
   hideExtraPages()
 }
 
 ////////////////////////////////////
 function hideExtraPages() {
-  console.log("hideExtraPages() called", 1111111111111)
-  // const pages = document.querySelectorAll(".page-number")
-  // const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  console.log("hideExtraPages() called")
+  const pages = document.querySelectorAll(".page-number")
+  const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  let howManyNumbersToGetDisplayed = 3
+  currentPage = 21
+  // currentPage = +currentPage
+  let dispayedPagesNums = [currentPage]
   // const pagesNums = [...Array(numberOfPages+1).keys()].slice(1)
-  // // currentPage = +currentPage
   
-  // pages.forEach(page => {
-  //   if (page.id != "prev" && page.id != "next") {
-  //     page.style.display = "none"
+  pages.forEach(page => {
+    if (page.id != "prev" && page.id != "next" && page.id != "<<" && page.id != ">>") {
+      page.style.display = "none"
+    }
+  })
+
+  let interations = 4
+  let temp = 1
+  for (let interation = 1; interation <= interations; interation++) {
+    dispayedPagesNums.unshift(currentPage - temp)
+    dispayedPagesNums.push(currentPage + temp)
+    // if (currentPage - temp > 0) {
+    //   dispayedPagesNums.unshift(currentPage - temp)
+    // } else {
+    //   dispayedPagesNums.push(currentPage + temp)
+    // }
+    // if (currentPage + temp <= numberOfPages) {
+    //   dispayedPagesNums.push(currentPage + temp)
+    // } else {
+    //   dispayedPagesNums.unshift(currentPage - temp)
+    // }
+    temp += 1
+    // dispayedPagesNums.splice()
+  }
+  ///////////////////////////////
+  let idx = 0
+  let count = 0
+  while (true) {
+    if (dispayedPagesNums[idx] < 1) {
+      dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
+      dispayedPagesNums.splice(idx, 1)
+      idx = 0
+    } else if (dispayedPagesNums[idx] > numberOfPages) {
+      dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
+      dispayedPagesNums.splice(i+1, 1)
+      idx = 0
+    }
+    let breakLoop = true
+    for (let i of dispayedPagesNums) {
+      if (i < 1 || i > numberOfPages) {
+        breakLoop = false
+      }
+    }
+    if (breakLoop) {
+      console.log(dispayedPagesNums, 333333333333333333333333)
+      return
+    }
+    if (count >= 120) {
+      console.log("yyyyyyyyyyyyyyy")
+      return
+    }
+  }
+  // for (let i = 0; i <= dispayedPagesNums.length - 1; i++) {
+  //   if (dispayedPagesNums[i] < 1) {
+  //     dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
+  //     dispayedPagesNums.splice(i, 1)
+  //   } else if (dispayedPagesNums[i] > numberOfPages) {
+  //     dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
+  //     dispayedPagesNums.splice(i+1, 1)
   //   }
-  // })
+  // }
+  console.log(dispayedPagesNums, 11111111111)
+  // for (let i of dispayedPagesNums) {
+  //   if (i < 1) {
+  //     dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
+  //   } else if (i > numberOfPages) {
+  //     dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
+  //   }
+  //   console.log(dispayedPagesNums)
+  // }
+  // let temp = 1
+  // while (1 == 1) {
+  //   if (currentPage - temp > 0) {
+  //     dispayedPagesNums.unshift(currentPage - temp)
+  //   } else {
+  //     dispayedPagesNums.push(currentPage + temp)
+  //   }
+  //   if (currentPage + temp <= numberOfPages) {
+  //     dispayedPagesNums.push(currentPage + temp)
+  //   } else {
+  //     dispayedPagesNums.unshift(currentPage - temp)
+  //   }
+  //   temp += 1
+  //   console.log(dispayedPagesNums)
+  //   if (dispayedPagesNums.length >= howManyNumbersToGetDisplayed) {
+  //     return
+  //   }
+  // }
+  // while (dispayedPagesNums.length != howManyNumbersToGetDisplayed) {
+  //   if (currentPage - 1 > 0) {
+  //     dispayedPagesNums.unshift(currentPage - 1)
+  //     if (currentPage + 1 <= numberOfPages) {
+  //       dispayedPagesNums.push(currentPage + 1)
+  //     }
+  //   }
+  //   console.log(dispayedPagesNums)
+  // }
+
   // if (numberOfPages > 8) {
   //   if ([1, 2, 3].includes(currentPage)) {
   //     // 1,2,3
