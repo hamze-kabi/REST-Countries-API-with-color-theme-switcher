@@ -7,6 +7,7 @@ let filteredCountries = null;
 let resultsPerPage;
 let currentPage = 1;
 let searchedVal = null;
+let NumberOfPageButtons = 3
 
 async function fetchData() {
   console.log("fetchData() called")
@@ -136,6 +137,19 @@ function extractResultsPerPage() {
   } 
 }
 
+
+function determineNumberOfPageButtons() {
+  if (window.innerWidth < 450) {
+    NumberOfPageButtons = 3
+  } else if (window.innerWidth >= 450 && window.innerWidth < 800) {
+    NumberOfPageButtons = 5
+  } else if (window.innerWidth >= 800 && window.innerWidth < 1500) {
+    NumberOfPageButtons = 7
+  } else {
+    NumberOfPageButtons = 9
+  }
+}
+
 // related to pages
 function createPagesNumbers() {
   console.log("createPageNumbers() called")
@@ -157,168 +171,65 @@ function createPagesNumbers() {
   hideExtraPages()
 }
 
-////////////////////////////////////
+
 function hideExtraPages() {
   console.log("hideExtraPages() called")
-  const pages = document.querySelectorAll(".page-number")
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
-  let howManyNumbersToGetDisplayed = 3
-  currentPage = 21
-  // currentPage = +currentPage
+  currentPage = +currentPage
   let dispayedPagesNums = [currentPage]
-  // const pagesNums = [...Array(numberOfPages+1).keys()].slice(1)
-  
-  pages.forEach(page => {
-    if (page.id != "prev" && page.id != "next" && page.id != "<<" && page.id != ">>") {
-      page.style.display = "none"
-    }
-  })
+  let interations = Math.floor(NumberOfPageButtons/2)
 
-  let interations = 4
   let temp = 1
   for (let interation = 1; interation <= interations; interation++) {
     dispayedPagesNums.unshift(currentPage - temp)
     dispayedPagesNums.push(currentPage + temp)
-    // if (currentPage - temp > 0) {
-    //   dispayedPagesNums.unshift(currentPage - temp)
-    // } else {
-    //   dispayedPagesNums.push(currentPage + temp)
-    // }
-    // if (currentPage + temp <= numberOfPages) {
-    //   dispayedPagesNums.push(currentPage + temp)
-    // } else {
-    //   dispayedPagesNums.unshift(currentPage - temp)
-    // }
     temp += 1
-    // dispayedPagesNums.splice()
   }
-  ///////////////////////////////
-  let idx = 0
-  let count = 0
-  while (true) {
-    if (dispayedPagesNums[idx] < 1) {
-      dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
-      dispayedPagesNums.splice(idx, 1)
-      idx = 0
-    } else if (dispayedPagesNums[idx] > numberOfPages) {
-      dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
-      dispayedPagesNums.splice(i+1, 1)
-      idx = 0
+
+  let toPush = []
+  let toUnshift = []
+  let toSplice = []
+  let temp1 = 0
+  let temp2 = 1
+  for (let i of dispayedPagesNums) {
+    if (i < 1) {
+      if (toPush.length == 0) {
+        toPush.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
+      } else {
+        toPush.push(toPush[toPush.length - 1] + 1)
+      }
+      toSplice.push(i)
+    } else if (i > numberOfPages) {
+      if (toUnshift.length == 0) {
+        toUnshift.push(dispayedPagesNums[0] - 1)
+      } else {
+        toUnshift.push(toUnshift[toUnshift.length - 1] - 1)
+      }
+      toSplice.push(i)
     }
-    let breakLoop = true
-    for (let i of dispayedPagesNums) {
-      if (i < 1 || i > numberOfPages) {
-        breakLoop = false
+  }
+  for (let i of toSplice) {
+    dispayedPagesNums.splice(dispayedPagesNums.indexOf(i), 1)
+  }
+  for (let i of toPush) {
+    dispayedPagesNums.push(i)
+  }
+  for (let i of toUnshift) {
+    dispayedPagesNums.unshift(i)
+  }  
+
+  for (let i = 1; i <= numberOfPages; i++) {
+    let el = document.getElementById(`page-${i}`)
+    if (dispayedPagesNums.includes(i)) {
+      if (el.classList.contains("hide")) {
+        el.classList.remove("hide")
+      }
+    } else {
+      if (!el.classList.contains("hide")) {
+        el.classList.add("hide")
       }
     }
-    if (breakLoop) {
-      console.log(dispayedPagesNums, 333333333333333333333333)
-      return
-    }
-    if (count >= 120) {
-      console.log("yyyyyyyyyyyyyyy")
-      return
-    }
   }
-  // for (let i = 0; i <= dispayedPagesNums.length - 1; i++) {
-  //   if (dispayedPagesNums[i] < 1) {
-  //     dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
-  //     dispayedPagesNums.splice(i, 1)
-  //   } else if (dispayedPagesNums[i] > numberOfPages) {
-  //     dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
-  //     dispayedPagesNums.splice(i+1, 1)
-  //   }
-  // }
-  console.log(dispayedPagesNums, 11111111111)
-  // for (let i of dispayedPagesNums) {
-  //   if (i < 1) {
-  //     dispayedPagesNums.push(dispayedPagesNums[dispayedPagesNums.length - 1] + 1)
-  //   } else if (i > numberOfPages) {
-  //     dispayedPagesNums.unshift(dispayedPagesNums[0] - 1)
-  //   }
-  //   console.log(dispayedPagesNums)
-  // }
-  // let temp = 1
-  // while (1 == 1) {
-  //   if (currentPage - temp > 0) {
-  //     dispayedPagesNums.unshift(currentPage - temp)
-  //   } else {
-  //     dispayedPagesNums.push(currentPage + temp)
-  //   }
-  //   if (currentPage + temp <= numberOfPages) {
-  //     dispayedPagesNums.push(currentPage + temp)
-  //   } else {
-  //     dispayedPagesNums.unshift(currentPage - temp)
-  //   }
-  //   temp += 1
-  //   console.log(dispayedPagesNums)
-  //   if (dispayedPagesNums.length >= howManyNumbersToGetDisplayed) {
-  //     return
-  //   }
-  // }
-  // while (dispayedPagesNums.length != howManyNumbersToGetDisplayed) {
-  //   if (currentPage - 1 > 0) {
-  //     dispayedPagesNums.unshift(currentPage - 1)
-  //     if (currentPage + 1 <= numberOfPages) {
-  //       dispayedPagesNums.push(currentPage + 1)
-  //     }
-  //   }
-  //   console.log(dispayedPagesNums)
-  // }
-
-  // if (numberOfPages > 8) {
-  //   if ([1, 2, 3].includes(currentPage)) {
-  //     // 1,2,3
-  //     // 1,2,3,4,5...20
-  //     for (let id of [1, 2, 3]) {
-  //       document.getElementById(`page-${id}`).style.display = ""
-  //     }
-  //     document.getElementById(`three-dots-right`).style.display = ""
-  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
-  //   } else if (currentPage == 4) {
-  //       // 4
-  //       // 1,2,3,4,5,6...20
-  //       for (let id of [1, 2, 3, 4, 5, 6]) {
-  //         document.getElementById(`page-${id}`).style.display = ""
-  //       } 
-  //       document.getElementById(`three-dots-right`).style.display = ""
-  //       document.getElementById(`page-${numberOfPages}`).style.display = ""
-  //     }
-  //   else if (currentPage == 5) {
-  //     // 5
-  //     // 1,2,3,4,5,6,7...20
-  //     for (let id of [1, 2, 3, 4, 5, 6, 7]) {
-  //       document.getElementById(`page-${id}`).style.display = ""
-  //     }
-  //     document.getElementById(`three-dots-right`).style.display = ""
-  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
-  //   } else if (currentPage == pagesNums.length - 3) {
-  //     // 17
-  //     // 1...15,16,17,18,19,20
-  //     document.getElementById(`page-1`).style.display = ""
-  //     for (let id = pagesNums.length - 6; id <= pagesNums.length; id++) {
-  //       document.getElementById(`page-${id}`).style.display = ""        
-  //     }
-  //     document.getElementById(`three-dots-left`).style.display = ""
-  //   } else if (pagesNums.slice(pagesNums.length - 3).includes(+currentPage)) {
-  //     // 18,19,20
-  //     // 1...16,17,18,19,20
-  //     document.getElementById(`page-1`).style.display = ""
-  //     for (let id of pagesNums.slice(pagesNums.length - 5)) {
-  //       document.getElementById(`page-${id}`).style.display = ""
-  //     }
-  //     document.getElementById(`three-dots-left`).style.display = ""
-  //   } else {
-  //     document.getElementById(`three-dots-left`).style.display = ""
-  //     document.getElementById(`three-dots-right`).style.display = ""
-  //     document.getElementById(`page-1`).style.display = ""
-  //     document.getElementById(`page-${numberOfPages}`).style.display = ""
-  //     for (let id = +currentPage - 2; id <= +currentPage + 2; id++) {
-  //       // 1...n,n,n,n,n...20
-  //       document.getElementById(`page-${id}`).style.display = ""
-  //     }
-  //   }
-  // }
 }
 
 
@@ -334,19 +245,26 @@ function selectPage() {
   const pageNumbers = document.querySelectorAll(".page-number")
   pageNumbers.forEach(page => {
     page.addEventListener("click", function() {
-      const nonNumPages = ["...", "&lt;&lt; Prev", "Next &gt;&gt;"]
+      const nonNumPages = ["&lt;&lt;", "Prev", "Next", "&gt;&gt;"]
       if (!nonNumPages.includes(page.innerHTML)) {
         console.log("Page number selected")
         currentPage = page.innerHTML
-        managePaginate("select-page")
-      } else if (page.innerHTML == "&lt;&lt; Prev") {
-        try {
-          currentPage = currentPage - 1
-          managePaginate("select-page")
-        } catch(error) {
-          console.log(error)
+      } else {
+        if (page.innerHTML == "&lt;&lt;") {
+          currentPage = 1
+        } else if (page.innerHTML == "Prev") {
+          if (currentPage > 1) {
+            currentPage -= 1
+          }
+        } else if (page.innerHTML == "Next") {
+          if (currentPage < +Array.from(pageNumbers)[Array.from(pageNumbers).length - 3].innerHTML) {
+            currentPage += 1
+          } 
+        } else if (page.innerHTML == "&gt;&gt;") {
+          currentPage = +Array.from(pageNumbers)[Array.from(pageNumbers).length - 3].innerHTML
         }
       }
+      managePaginate("select-page")
     })
   })
 }
@@ -649,6 +567,7 @@ function managePaginate(state="") {
     selectCountriesObj()
     extractResultsPerPage()
     clearPageNumbers()
+    determineNumberOfPageButtons()
     createPagesNumbers()
     resetCountryCardsDisplay()
     createCountryCard()
@@ -693,6 +612,9 @@ function managePaginate(state="") {
     selectPage()
     paginate()
     totalNumberOfResults()
+  } else if (state == "resize") {
+    determineNumberOfPageButtons()
+    hideExtraPages();
   }
 }
 
@@ -716,6 +638,9 @@ function initializeApp() {
   extractSearch()
   goTocountryPage()
   darkMode()
+  window.addEventListener("resize", function() {
+    managePaginate("resize")
+  })
 }
 
 // start app

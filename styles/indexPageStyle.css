@@ -26,6 +26,7 @@ header {
   margin-right: 0.5rem;
 }
 
+
 #crescent-icon {
 }
 
@@ -269,6 +270,10 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   min-width: 1rem;
+}
+
+.hide {
+  display: none;
 }
 
 #results {
