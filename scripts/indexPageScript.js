@@ -239,6 +239,23 @@ function clearPageNumbers() {
   document.querySelectorAll(".page-number").forEach(el => el.remove())
 }
 
+function highlightCurrentPage() {
+  console.log("highlightCurrentPage() called")
+  const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
+  for (let i = 1; i <= numberOfPages; i++) {
+    let el = document.getElementById(`page-${i}`)
+    if (i == +currentPage) {
+      if (!el.classList.contains("highlightCurrentPage")) {
+        el.classList.add("highlightCurrentPage")
+      }
+    } else {
+      if (el.classList.contains("highlightCurrentPage")) {
+        el.classList.remove("highlightCurrentPage")
+      }
+    }
+  }
+}
+
 // self explainatory
 function selectPage() {
   console.log("selectPage() called")
@@ -616,6 +633,7 @@ function managePaginate(state="") {
     determineNumberOfPageButtons()
     hideExtraPages();
   }
+  highlightCurrentPage()
 }
 
 // all the functions get nested inside initializeApp()

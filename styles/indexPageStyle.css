@@ -276,6 +276,10 @@ button {
   display: none;
 }
 
+.highlightCurrentPage {
+  background-color:burlywood;
+}
+
 #results {
   display: flex;
   flex-direction: column;
