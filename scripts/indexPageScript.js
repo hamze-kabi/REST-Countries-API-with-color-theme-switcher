@@ -58,11 +58,16 @@ function extractCountriesInfo() {
       languages = "none"
     }
 
-    let borders;
+    let borders = []
     if (country.borders == undefined) {
       borders = "None"
     } else {
-      borders = country.borders
+      let bordersCca3 = country.borders
+      countriesRaw.forEach(country => {
+        if (bordersCca3.includes(country.cca3)) {
+          borders.push(Object.values(country.name)[0])
+        }
+      })
     }
     // some seem extras
     allCountries[country.name.common] = {
@@ -121,10 +126,52 @@ function createCountryCard() {
 ///////////////////////////////////////////////
 function darkMode() {
   document.getElementById("dark-mode").addEventListener("click", function() {
+    // change color of all texts to white
+    // change moon to sun icon
+    // change color of background header
+    // change color of background of body
+    // change color of background of country cards
+    // change color of background of search field
+    // change color of background of area filter
+    // change color of zarebin
+    // change color of background of arrow of filter area
+    // change color of background of results per page
+    // change color of buttons and search field background when cursor hovers over them
+    // change color of background of expanded area of dropdowns
+    // change color of background of page btns
+
     const body = document.querySelector("body")
     const header = document.querySelector("header")
+    const crescent_icon = document.getElementById("crescent-icon")
+    const sun_icon = document.getElementById("sun-icon")
     const searchFilterSection = document.getElementById("search-filter-section")
+    const country_cards_container = document.getElementById("country-cards-container")
+    const search_section = document.getElementById("search-section")
+    const search_field = document.getElementById("search-field")
+    const bottom = document.getElementById("bottom")
+    const buttons = document.querySelectorAll("button")
+    const dropdownContents = document.querySelectorAll(".dropdown-content")
 
+    console.log(dropdownContents)
+    buttons.forEach(button => {
+      button.classList.toggle("dark-button")
+    })
+
+    dropdownContents.forEach(dropdownContent => {
+      dropdownContent.classList.toggle("dark-dropdown-content")
+    })
+    const elements = [body, header, crescent_icon, searchFilterSection, country_cards_container, search_section, search_field, bottom]
+    const styles = ["dark-body", "dark-header", "dark-crescent-icon", "dark-search-filter-section", "dark-country-cards-container", "dark-search-section", "dark-search-field", "dark-bottom"]
+
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.toggle(styles[i])
+    }
+    console.log(sun_icon.style.display)
+    if (sun_icon.style.display == "") {
+      sun_icon.style.display = "block"
+    } else {
+      sun_icon.style.display = ""
+    }
   })
 }
 

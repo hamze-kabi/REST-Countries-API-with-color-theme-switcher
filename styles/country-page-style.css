@@ -1,3 +1,5 @@
+@import url("styles\indexPageStyle.css");
+
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0.5rem;
@@ -15,23 +17,33 @@ header {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+button {
+  font-size: 50rem;
+}
+
 #go-back-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem;
+  padding-left: 0rem;
 }
 
 #country {
   display: grid;
   grid-template-areas: 
-  "flag country-name"
-  "flag country-details"
-  "flag border-countries";
+  "flag"
+  "country-name"
+  "country-details"
+  "border-countries";
+  justify-content: center;
+  justify-items: stretch;
 }
 
 #flag {
   grid-area: flag;
+  /* min-height: 12rem; */
+  /* width: 100%; */
 }
 
 #country-name {
@@ -42,18 +54,115 @@ header {
   grid-area: country-details;
 }
 
-.border {
-  cursor: pointer;
-}
-
 #border {
   grid-area: border-countries;
 }
 
-#go-back-btn {
+
+#dark-mode {
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
-#dark-mode {
+#dark-mode-icon {
+  margin-right: 0.5rem;
+}
+
+
+#crescent-icon {
+}
+
+#sun-icon {
+  display: none;
+}
+
+#go-back-btn, .border {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: auto 0.25rem;
+  background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  font-family: "Amazon Ember",Arial,sans-serif;
+  font-size: larger;
+  outline: 0;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.border {
+  display: inline-block;
+  margin: 0.25rem;
+}
+
+@media screen and (width > 450px) {
+  #country {
+    display: grid;
+    grid-template-areas:
+    "flag country-name"
+    "flag country-details"
+    "flag border-countries";
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 1rem;
+  }
+  
+}
+
+@media screen and (width > 775px) {
+  #flag {
+    width: 35vw;
+    /* height: 70%;
+    max-width: 85%; */
+  }  
+}
+
+@media screen and (width > 840px) {
+  #go-back-section {
+    padding-left: 5vw;
+  }
+}
+
+@media screen and (width > 1030px) {
+  #country {
+    font-size: larger;
+    justify-content: center;
+    gap: 0rem;
+    justify-content: space-around;
+  }
+  #flag {
+    /* height: 100%;
+    max-width: 85%; */
+  }  
+}
+
+@media screen and (width > 1500px) {
+  body {
+    font-size: 1.3vw;
+  }
+  button {
+    min-height: 3vh;
+    min-width: 6vw;
+  }
+  #go-back-section {
+    margin: 1vw auto;
+  }
+  #crescent-icon, #sun-icon {
+    scale: 2;
+  }
 }
