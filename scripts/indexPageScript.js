@@ -8,6 +8,7 @@ let resultsPerPage;
 let currentPage = 1;
 let searchedVal = null;
 let NumberOfPageButtons = 3
+let darkModeState = false
 
 async function fetchData() {
   console.log("fetchData() called")
@@ -126,6 +127,11 @@ function createCountryCard() {
 ///////////////////////////////////////////////
 function darkMode() {
   document.getElementById("dark-mode").addEventListener("click", function() {
+    if (darkModeState) {
+      darkModeState = false
+    } else {
+      darkModeState = true
+    }
     // change color of all texts to white
     // change moon to sun icon
     // change color of background header
@@ -152,7 +158,6 @@ function darkMode() {
     const buttons = document.querySelectorAll("button")
     const dropdownContents = document.querySelectorAll(".dropdown-content")
 
-    console.log(dropdownContents)
     buttons.forEach(button => {
       button.classList.toggle("dark-button")
     })
@@ -166,12 +171,12 @@ function darkMode() {
     for (let i = 0; i < elements.length; i++) {
       elements[i].classList.toggle(styles[i])
     }
-    console.log(sun_icon.style.display)
     if (sun_icon.style.display == "") {
       sun_icon.style.display = "block"
     } else {
       sun_icon.style.display = ""
     }
+    highlightCurrentPage()
   })
 }
 
@@ -288,19 +293,41 @@ function clearPageNumbers() {
 
 function highlightCurrentPage() {
   console.log("highlightCurrentPage() called")
+
+  let highlightColor;
+  if (darkModeState) {
+    highlightColor = "red"
+  } else {
+    highlightColor = "burlywood"
+  }
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   for (let i = 1; i <= numberOfPages; i++) {
     let el = document.getElementById(`page-${i}`)
     if (i == +currentPage) {
-      if (!el.classList.contains("highlightCurrentPage")) {
-        el.classList.add("highlightCurrentPage")
-      }
+      el.style.backgroundColor = highlightColor
     } else {
-      if (el.classList.contains("highlightCurrentPage")) {
-        el.classList.remove("highlightCurrentPage")
-      }
+      el.style.backgroundColor = ""
     }
+    // if (i == +currentPage) {
+
+    //   // if (el.style.backgroundColor != "burlywood") {
+    //   //   el.style.backgroundColor
+    //   // }
+    //   // el.style.backgroundColor = "red"
+    // //   if (!el.classList.contains("highlightCurrentPage")) {
+    // //     el.classList.add("highlightCurrentPage")
+    // //   }
+    // // } else {
+    // //   if (el.classList.contains("highlightCurrentPage")) {
+    // //     el.classList.remove("highlightCurrentPage")
+    // //   }
+    // }
   }
+  // if (darkModeState) {
+  //   document.querySelector(".highlightCurrentPage").style.backgroundColor = "red"
+  // } else {
+  //   document.querySelector(".highlightCurrentPage").style.backgroundColor = "burlywood"
+  // }
 }
 
 // self explainatory
