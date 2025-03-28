@@ -109,29 +109,15 @@ button {
   margin: 0.25rem;
 }
 
-.dark-body {
-  color: #e7e9ec;
-}
-
-.dark-header {
-  background-color: #2B3844;
-}
-
-.dark-crescent-icon {
-  display: none;
-}
-
-.dark-sun-icon {
-  display: "block";
-}
-
-.dark-bottom {
+.dark-go-back-section {
   background-color: #202C35;
+  margin: -0.5rem;
 }
 
-.dark-button {
-  background-color: #2B3844;
-  color: white;  
+.dark-country {
+  background-color: #202C35;
+  margin: -0.5rem;
+  /* margin: auto -0.5rem; */
 }
 
 @media screen and (width > 450px) {

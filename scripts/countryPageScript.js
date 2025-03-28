@@ -141,20 +141,21 @@ function darkMode() {
     } else {
       darkModeState = true
     }
+    
     const body = document.querySelector("body")
     const header = document.querySelector("header")
     const crescent_icon = document.getElementById("crescent-icon")
     const sun_icon = document.getElementById("sun-icon")
-    const bottom = document.getElementById("bottom")
     const buttons = document.querySelectorAll("button")
+    const goBackSection = document.getElementById("go-back-section")
+    const country = document.getElementById("country")
 
     buttons.forEach(button => {
       button.classList.toggle("dark-button")
     })
 
-    const elements = [body, header, crescent_icon, bottom]
-    const styles = ["dark-body", "dark-header", "dark-crescent-icon", "dark-bottom"]
-
+    const elements = [body, header, crescent_icon, goBackSection, country]
+    const styles = ["dark-body", "dark-header", "dark-crescent-icon", "dark-go-back-section", "dark-country"]
     for (let i = 0; i < elements.length; i++) {
       elements[i].classList.toggle(styles[i])
     }

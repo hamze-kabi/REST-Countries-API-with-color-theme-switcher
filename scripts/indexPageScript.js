@@ -124,6 +124,7 @@ function createCountryCard() {
   })
 }
 
+
 ///////////////////////////////////////////////
 function darkMode() {
   document.getElementById("dark-mode").addEventListener("click", function() {
@@ -144,6 +145,7 @@ function darkMode() {
     const buttons = document.querySelectorAll("button")
     const dropdownContents = document.querySelectorAll(".dropdown-content")
 
+    console.log(dropdownContents)
     buttons.forEach(button => {
       button.classList.toggle("dark-button")
     })
@@ -157,12 +159,12 @@ function darkMode() {
     for (let i = 0; i < elements.length; i++) {
       elements[i].classList.toggle(styles[i])
     }
+    console.log(sun_icon.style.display)
     if (sun_icon.style.display == "") {
       sun_icon.style.display = "block"
     } else {
       sun_icon.style.display = ""
     }
-    highlightCurrentPage()
   })
 }
 
@@ -279,41 +281,19 @@ function clearPageNumbers() {
 
 function highlightCurrentPage() {
   console.log("highlightCurrentPage() called")
-
-  let highlightColor;
-  if (darkModeState) {
-    highlightColor = "red"
-  } else {
-    highlightColor = "burlywood"
-  }
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   for (let i = 1; i <= numberOfPages; i++) {
     let el = document.getElementById(`page-${i}`)
     if (i == +currentPage) {
-      el.style.backgroundColor = highlightColor
+      if (!el.classList.contains("highlightCurrentPage")) {
+        el.classList.add("highlightCurrentPage")
+      }
     } else {
-      el.style.backgroundColor = ""
+      if (el.classList.contains("highlightCurrentPage")) {
+        el.classList.remove("highlightCurrentPage")
+      }
     }
-    // if (i == +currentPage) {
-
-    //   // if (el.style.backgroundColor != "burlywood") {
-    //   //   el.style.backgroundColor
-    //   // }
-    //   // el.style.backgroundColor = "red"
-    // //   if (!el.classList.contains("highlightCurrentPage")) {
-    // //     el.classList.add("highlightCurrentPage")
-    // //   }
-    // // } else {
-    // //   if (el.classList.contains("highlightCurrentPage")) {
-    // //     el.classList.remove("highlightCurrentPage")
-    // //   }
-    // }
   }
-  // if (darkModeState) {
-  //   document.querySelector(".highlightCurrentPage").style.backgroundColor = "red"
-  // } else {
-  //   document.querySelector(".highlightCurrentPage").style.backgroundColor = "burlywood"
-  // }
 }
 
 // self explainatory
