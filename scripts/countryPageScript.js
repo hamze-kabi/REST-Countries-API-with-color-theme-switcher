@@ -12,6 +12,7 @@ let subregion;
 let currencies;
 let languages;
 let borders;
+let darkModeState = false
 
 async function fetchData() {
   console.log("fetchData() called")
@@ -133,6 +134,38 @@ function goToBorderCountry() {
   })
 }
 
+function darkMode() {
+  document.getElementById("dark-mode").addEventListener("click", function() {
+    if (darkModeState) {
+      darkModeState = false
+    } else {
+      darkModeState = true
+    }
+    const body = document.querySelector("body")
+    const header = document.querySelector("header")
+    const crescent_icon = document.getElementById("crescent-icon")
+    const sun_icon = document.getElementById("sun-icon")
+    const bottom = document.getElementById("bottom")
+    const buttons = document.querySelectorAll("button")
+
+    buttons.forEach(button => {
+      button.classList.toggle("dark-button")
+    })
+
+    const elements = [body, header, crescent_icon, bottom]
+    const styles = ["dark-body", "dark-header", "dark-crescent-icon", "dark-bottom"]
+
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.toggle(styles[i])
+    }
+    if (sun_icon.style.display == "") {
+      sun_icon.style.display = "block"
+    } else {
+      sun_icon.style.display = ""
+    }
+  })
+}
+
 function backButton() {
   document.getElementById("go-back-btn").addEventListener("click", function() {
     window.history.back()
@@ -143,3 +176,4 @@ extractLocalStorageData()
 insertCountryCardDetails()
 goToBorderCountry()
 backButton()
+darkMode()

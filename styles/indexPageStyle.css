@@ -1,9 +1,6 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0.5rem;
-  /* width: 100vw; */
-  /* margin: 0; */
-  /* height: 100%; */
 }
 
 header {
@@ -23,10 +20,6 @@ header {
 
 #dark-mode-icon {
   margin-right: 0.5rem;
-}
-
-
-#crescent-icon {
 }
 
 #sun-icon {
@@ -67,7 +60,6 @@ button {
   cursor: pointer;
 }
 
-/* , #results-per-page-btn */
 #filter-by-region-btn {
   display: flex;
   align-items: center;
@@ -79,11 +71,6 @@ button {
   cursor: pointer;
 }
 
-/* #results-per-page-btn {
-  font-size: medium;
-  padding: 0.3rem;
-} */
-
 #results-per-page-btn {
   display: flex;
   align-items: center;
@@ -93,30 +80,6 @@ button {
   padding: 0.3rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
   cursor: pointer;
-  /* display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-color: #adb1b8 #a2a6ac #8d9096;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-family: "Amazon Ember",Arial,sans-serif;
-  font-size: 14px;
-  height: 29px;
-  font-size: 13px;
-  outline: 0;
-  overflow: hidden;
-  padding: 0.3rem;
-  text-align: center;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap; */
 }
 
 #results-per-page-btn:active {
@@ -203,9 +166,6 @@ button {
   gap: 2rem;
   padding-top: 1rem;
   margin: auto -0.5rem;
-  /* margin-left: -0.5rem;
-  margin-right: -0.5rem; */
-  /* margin: 1rem auto; */
 }
 
 .country-card {

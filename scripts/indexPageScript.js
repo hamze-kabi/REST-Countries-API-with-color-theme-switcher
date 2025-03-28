@@ -132,20 +132,6 @@ function darkMode() {
     } else {
       darkModeState = true
     }
-    // change color of all texts to white
-    // change moon to sun icon
-    // change color of background header
-    // change color of background of body
-    // change color of background of country cards
-    // change color of background of search field
-    // change color of background of area filter
-    // change color of zarebin
-    // change color of background of arrow of filter area
-    // change color of background of results per page
-    // change color of buttons and search field background when cursor hovers over them
-    // change color of background of expanded area of dropdowns
-    // change color of background of page btns
-
     const body = document.querySelector("body")
     const header = document.querySelector("header")
     const crescent_icon = document.getElementById("crescent-icon")
