@@ -12,7 +12,7 @@ let subregion;
 let currencies;
 let languages;
 let borders;
-let darkModeState = false
+let darkModeState;
 
 async function fetchData() {
   console.log("fetchData() called")
@@ -44,6 +44,12 @@ function extractLocalStorageData() {
   currencies = localStorage.getItem("currencies")
   languages = localStorage.getItem("languages")
   borders = localStorage.getItem("borders")
+  darkModeState = localStorage.getItem("darkModeState")
+  if (darkModeState == "false") {
+    darkModeState = false
+  } else {
+    darkModeState = true
+  }
 }
 
 
@@ -68,7 +74,7 @@ function insertCountryCardDetails() {
 }
 
 function findSelectedCountry(border) {
-  return countriesRaw.find(country => country.cca3 == border)
+  return countriesRaw.find(country => Object.values(country.name)[0] == border)
 }
 
 function clearLocalStorage() {
@@ -97,10 +103,17 @@ function saveDataToLocalStorage() {
   } catch(error) {
     languages = "none"
   }
+  
+  let borders = []
   if (country.borders == undefined) {
     borders = "None"
   } else {
-    borders = country.borders
+    let bordersCca3 = country.borders
+    countriesRaw.forEach(country => {
+      if (bordersCca3.includes(country.cca3)) {
+        borders.push(Object.values(country.name)[0])
+      }
+    })
   }
 
   countryName = country.name.common
@@ -119,6 +132,7 @@ function saveDataToLocalStorage() {
   localStorage.setItem("currencies", currencies)
   localStorage.setItem("languages", languages)
   localStorage.setItem("borders", borders)
+  localStorage.setItem("darkModeState", darkModeState)
   window.location.href = "country-page.html"
 }
 
@@ -135,13 +149,7 @@ function goToBorderCountry() {
 }
 
 function darkMode() {
-  document.getElementById("dark-mode").addEventListener("click", function() {
-    if (darkModeState) {
-      darkModeState = false
-    } else {
-      darkModeState = true
-    }
-    
+  function loadPageInDarkMode() {
     const body = document.querySelector("body")
     const header = document.querySelector("header")
     const crescent_icon = document.getElementById("crescent-icon")
@@ -164,6 +172,19 @@ function darkMode() {
       sun_icon.style.display = "block"
     } else {
       sun_icon.style.display = ""
+    }
+  }
+
+  let zzzzzz = darkModeState
+  if (darkModeState) {
+    loadPageInDarkMode()
+  }
+  document.getElementById("dark-mode").addEventListener("click", function() {
+    loadPageInDarkMode()
+    if (darkModeState) {
+      darkModeState = false
+    } else {
+      darkModeState = true
     }
   })
 }

@@ -158,12 +158,12 @@ function darkMode() {
     for (let i = 0; i < elements.length; i++) {
       elements[i].classList.toggle(styles[i])
     }
-    console.log(sun_icon.style.display)
     if (sun_icon.style.display == "") {
       sun_icon.style.display = "block"
     } else {
       sun_icon.style.display = ""
     }
+    highlightCurrentPage()
   })
 }
 
@@ -280,16 +280,24 @@ function clearPageNumbers() {
 
 function highlightCurrentPage() {
   console.log("highlightCurrentPage() called")
+  let highlightClass;
+
+  if (darkModeState) {
+    highlightClass = "darkHighlightCurrentPage"
+  } else {
+    highlightClass = "highlightCurrentPage"
+  }
+
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   for (let i = 1; i <= numberOfPages; i++) {
     let el = document.getElementById(`page-${i}`)
     if (i == +currentPage) {
-      if (!el.classList.contains("highlightCurrentPage")) {
-        el.classList.add("highlightCurrentPage")
+      if (!el.classList.contains(highlightClass)) {
+        el.classList.add(highlightClass)
       }
     } else {
-      if (el.classList.contains("highlightCurrentPage")) {
-        el.classList.remove("highlightCurrentPage")
+      if (el.classList.contains(highlightClass)) {
+        el.classList.remove(highlightClass)
       }
     }
   }
@@ -732,6 +740,7 @@ function goTocountryPage() {
     localStorage.setItem("currencies", currencies)
     localStorage.setItem("languages", languages)
     localStorage.setItem("borders", borders)
+    localStorage.setItem("darkModeState", darkModeState)
     window.location.href = "country-page.html"
     })
   })

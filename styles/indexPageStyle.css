@@ -306,6 +306,10 @@ button {
   color: white;  
 }
 
+.darkHighlightCurrentPage {
+  background-color: orangered;  
+}
+
 @media screen and (width < 500px) {
   #search-filter-section {
     flex-direction: column;
