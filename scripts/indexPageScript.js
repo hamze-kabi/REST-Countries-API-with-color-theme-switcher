@@ -167,6 +167,12 @@ function darkMode() {
   })
 }
 
+function magnifyingIconClickListener() {
+  document.getElementById("magnify-icon").addEventListener("click", function() {
+    document.getElementById("search-field").focus()
+  })
+}
+
 // number of country-cards displayed in each page equals resultsPerPage
 function extractResultsPerPage() {
   console.log("extractResultsPerPage() called")
@@ -853,6 +859,7 @@ function initializeApp() {
   extractSearch()
   goTocountryPage()
   darkMode()
+  magnifyingIconClickListener()
   window.addEventListener("resize", function() {
     managePaginate("resize")
   })
