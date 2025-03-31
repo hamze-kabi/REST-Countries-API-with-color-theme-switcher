@@ -58,7 +58,6 @@ button {
   grid-area: border-countries;
 }
 
-
 #dark-mode {
   display: flex;
   align-items: center;
@@ -109,6 +108,10 @@ button {
   margin: 0.25rem;
 }
 
+.dark-body {
+  background-color: #202C35;
+}
+
 .dark-go-back-section {
   background-color: #202C35;
   margin: -0.5rem;
@@ -118,6 +121,10 @@ button {
   background-color: #202C35;
   margin: -0.5rem;
   /* margin: auto -0.5rem; */
+}
+
+.dark-botton {
+  background-color: #202C35;  
 }
 
 @media screen and (width > 450px) {

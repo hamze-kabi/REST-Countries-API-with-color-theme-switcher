@@ -145,7 +145,6 @@ function darkMode() {
     const buttons = document.querySelectorAll("button")
     const dropdownContents = document.querySelectorAll(".dropdown-content")
 
-    console.log(dropdownContents)
     buttons.forEach(button => {
       button.classList.toggle("dark-button")
     })
@@ -386,103 +385,252 @@ function paginate() {
 // "Caribbean Netherlands"
 // "Saint Barthélemy"
 
-// following buttons when clicked dropdown drops and when clicked again, dropdown hides
 function showHideDropdowns() {
-  console.log("showHideDropdowns() called")
+  console.log("showHideDropdowns() called")  
 
   const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
 
-  function showHideFilterByRegionDropdownContentBlock(onlyHide=false) {
-    if (onlyHide) {
-      if (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px") {
-        filterByRegionDropdownContentBlock.style.height = "0px"
-        filterByRegionDropdownContentBlock.style.padding = "0px"              
-      }
-    } else {
-      if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
+  document.addEventListener("click", function(event) {
+    let filterByRegionDropdownContentBlockHeight = getComputedStyle(filterByRegionDropdownContentBlock).height
+    if (event.target.closest("#filter-by-region-btn")) {
+      if (filterByRegionDropdownContentBlockHeight == "0px") {
         filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
         filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
       } else {
         filterByRegionDropdownContentBlock.style.height = "0px"
         filterByRegionDropdownContentBlock.style.padding = "0px"        
-      }
-    }
-  }
-
-  function showHideResultsPerPageDropdownBlock(onlyHide=false) {
-    if (onlyHide) {
-      if (getComputedStyle(resultsPerPageDropdownBlock).height != "0px") {
-        resultsPerPageDropdownBlock.style.height = "0px"
-        resultsPerPageDropdownBlock.style.padding = "0px"        
-      }
+      }      
     } else {
-      if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
+      if (filterByRegionDropdownContentBlockHeight != "0px") {
+        filterByRegionDropdownContentBlock.style.height = "0px"
+        filterByRegionDropdownContentBlock.style.padding = "0px"
+      }      
+    }
+    rotateDropdownArrow("filter-by-region")
+  })
+
+  document.addEventListener("click", function(event) {
+    let resultsPerPageDropdownBlockHeight = getComputedStyle(resultsPerPageDropdownBlock).height
+    if (event.target.closest("#results-per-page-btn")) {
+      if (resultsPerPageDropdownBlockHeight == "0px") {
         resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
         resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
       } else {
         resultsPerPageDropdownBlock.style.height = "0px"
+        resultsPerPageDropdownBlock.style.padding = "0px"        
+      }      
+    } else {
+      if (resultsPerPageDropdownBlockHeight != "0px") {
+        resultsPerPageDropdownBlock.style.height = "0px"
         resultsPerPageDropdownBlock.style.padding = "0px"
       }
     }
-  }
-
-  document.addEventListener("click", function(event) {
-    if (event.target.closest("#filter-by-region-btn")) {
-      showHideFilterByRegionDropdownContentBlock()
-    } else {
-      showHideFilterByRegionDropdownContentBlock(true)
-    }
-  })
-
-  // results-per-page-btn
-  document.addEventListener("click", function(event) {
-    if (event.target.closest("#results-per-page-btn")) {
-      showHideResultsPerPageDropdownBlock()      
-    } else {
-      showHideResultsPerPageDropdownBlock(true)
-    }
+    rotateDropdownArrow("results-per-page")
   })
 }
 
-// rotates arrows of dropdown buttons
-function rotateDropdownArrow() {
-  console.log("rotateDropdownArrow() called")
-  const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
-  const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
-
-  // following elements when clicked filterByRegionArrow gets rotated
-  const filterByRegionLi = [
-    document.getElementById("filter-by-region-btn"),
-      ...Array.prototype.slice.call(
-        document.querySelectorAll(".filter-by-region-dropdown-content")
-      )
-    ]
-
-    // following elements when clicked resultsPerPageArrow gets rotated
-    const ResultsPerPageLi = [
-      document.getElementById("results-per-page-btn"),
-      ...Array.prototype.slice.call(
-        document.querySelectorAll(".results-per-page-number")
-      )
-    ]
-
-  // rotates filterByRegionArrow
-  filterByRegionLi.forEach(el => {
-    el.addEventListener("click", function() {
-      console.log("filter by region button / content selected")
-      filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
-    })
-  })
-
-  // rotates resultsPerPageArrow
-  ResultsPerPageLi.forEach(el => {
-    el.addEventListener("click", function() {
-      console.log("results per page button / content selected")
-      resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
-    })
-  })  
+function rotateDropdownArrow(whichArrow="") {
+  setTimeout(() => {
+    if (whichArrow == "filter-by-region") {
+      const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
+      const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
+      if (!filterByRegionArrow.style.transform) {
+        filterByRegionArrow.style.transform = "rotate(0deg)"
+      }
+      let filterByRegionArrowOrientation = filterByRegionArrow.style.transform
+      if (
+        (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px" && filterByRegionArrowOrientation == "rotate(0deg)")
+      ) {
+        filterByRegionArrow.style.transform = "rotate(180deg)"
+      } else if (
+        ((getComputedStyle(filterByRegionDropdownContentBlock).height == "0px" && filterByRegionArrowOrientation == "rotate(180deg)"))
+      ) {
+        filterByRegionArrow.style.transform = "rotate(0deg)"
+      }
+    } else if (whichArrow == "results-per-page") {
+      const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
+      const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
+      if (!resultsPerPageArrow.style.transform) {
+        resultsPerPageArrow.style.transform = "rotate(0deg)"
+      }
+      let resultsPerPageArrowOrientation = resultsPerPageArrow.style.transform
+      if (
+        (getComputedStyle(resultsPerPageDropdownBlock).height != "0px" && resultsPerPageArrowOrientation == "rotate(0deg)")
+      ) {
+        resultsPerPageArrow.style.transform = "rotate(180deg)"
+      } else if (
+        ((getComputedStyle(resultsPerPageDropdownBlock).height == "0px" && resultsPerPageArrowOrientation == "rotate(180deg)"))
+      ) {
+        resultsPerPageArrow.style.transform = "rotate(0deg)"
+      }
+    }
+  }, 300)
 }
+
+  //   if (
+  //     (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px" && filterByRegionArrowOrientation == "down") ||
+  //     ((getComputedStyle(filterByRegionDropdownContentBlock).height == "0px" && filterByRegionArrowOrientation == "up"))
+  //   ) {
+  //     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
+  //     if (filterByRegionArrowOrientation == "down") {
+  //       filterByRegionArrowOrientation = "up"
+  //     } else {
+  //       filterByRegionArrowOrientation = "down"
+  //     }    
+  //   }
+  // } else if (whichArrow == "results-per-page") {
+  //   const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
+  //   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
+  //   console.log(11, getComputedStyle(resultsPerPageDropdownBlock).height, resultsPerPageArrow)
+  //   if (
+  //     (getComputedStyle(resultsPerPageDropdownBlock).height != "0px" && resultsPerPageArrowOrientation == "down") ||
+  //     (getComputedStyle(resultsPerPageDropdownBlock).height == "0px" && resultsPerPageArrowOrientation == "up")
+  //   ) {
+  //     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
+  //     if (resultsPerPageArrowOrientation == "down") {
+  //       resultsPerPageArrowOrientation = "up"
+  //     } else {
+  //       resultsPerPageArrowOrientation = "down"
+  //     }
+  //   }
+
+
+// ////////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// // following buttons when clicked dropdown drops and when clicked again, dropdown hides
+// function showHideDropdowns() {
+//   console.log("showHideDropdowns() called")
+
+//   const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
+//   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
+
+//   function showHideFilterByRegionDropdownContentBlock(onlyHide=false) {
+//     if (onlyHide) {
+//       if (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px") {
+//         filterByRegionDropdownContentBlock.style.height = "0px"
+//         filterByRegionDropdownContentBlock.style.padding = "0px"              
+//       }
+//     } else {
+//       if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
+//         filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
+//         filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
+//       } else {
+//         filterByRegionDropdownContentBlock.style.height = "0px"
+//         filterByRegionDropdownContentBlock.style.padding = "0px"        
+//       }
+//     }
+//   }
+
+//   function showHideResultsPerPageDropdownBlock(onlyHide=false) {
+//     if (onlyHide) {
+//       if (getComputedStyle(resultsPerPageDropdownBlock).height != "0px") {
+//          resultsPerPageDropdownBlock.style.height = "0px"
+//         resultsPerPageDropdownBlock.style.padding = "0px"        
+//       }
+//     } else {
+//       if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
+//         resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
+//         resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
+//       } else {
+//         resultsPerPageDropdownBlock.style.height = "0px"
+//         resultsPerPageDropdownBlock.style.padding = "0px"
+//       }
+//     }
+//   }
+
+//   document.addEventListener("click", function(event) {
+//     if (event.target.closest("#filter-by-region-btn")) {
+//       showHideFilterByRegionDropdownContentBlock()
+//     } else {
+//       showHideFilterByRegionDropdownContentBlock(true)
+//     }
+//     rotateDropdownArrow()
+//   })
+
+//   // results-per-page-btn
+//   document.addEventListener("click", function(event) {
+//     if (event.target.closest("#results-per-page-btn")) {
+//       showHideResultsPerPageDropdownBlock()      
+//     } else {
+//       showHideResultsPerPageDropdownBlock(true)
+//     }
+//     rotateDropdownArrow()
+//   })
+// }
+
+// // rotates arrows of dropdown buttons
+// function rotateDropdownArrow() {
+//   console.log("rotateDropdownArrow() called")
+//   const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
+//   const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
+//   const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
+//   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
+//   console.log(getComputedStyle(filterByRegionDropdownContentBlock).height, filterByRegionArrowOrientation)
+//   console.log(getComputedStyle(resultsPerPageDropdownBlock).height, resultsPerPageArrowOrientation)
+//   if (
+//     (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px" && filterByRegionArrowOrientation == "up") ||
+//     (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px" && filterByRegionArrowOrientation == "down")
+//   ) {
+//     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
+//     if (filterByRegionArrowOrientation == "down") {
+//       filterByRegionArrowOrientation == "up"
+//     } else {
+//       filterByRegionArrowOrientation == "down"
+//     }
+//   }
+//   if (
+//     (getComputedStyle(resultsPerPageDropdownBlock).height == "0px" && resultsPerPageArrowOrientation == "up") ||
+//     (getComputedStyle(resultsPerPageDropdownBlock).height != "0px" && resultsPerPageArrowOrientation == "down")
+//   ) {
+//     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate") 
+//     if (resultsPerPageArrowOrientation == "down") {
+//       resultsPerPageArrowOrientation == "up"
+//     } else {
+//       resultsPerPageArrowOrientation == "down"
+//     }
+//   }
+//   // if (whichArrow == "filter-by-region") {
+//   //   filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
+//   // } else if (whichArrow == "results-per-page") {
+//   //   resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
+//   // }
+//   // // following elements when clicked filterByRegionArrow gets rotated
+//   // const filterByRegionLi = [
+//   //   document.getElementById("filter-by-region-btn"),
+//   //     ...Array.prototype.slice.call(
+//   //       document.querySelectorAll(".filter-by-region-dropdown-content")
+//   //     )
+//   //   ]
+
+//   //   // following elements when clicked resultsPerPageArrow gets rotated
+//   //   const ResultsPerPageLi = [
+//   //     document.getElementById("results-per-page-btn"),
+//   //     ...Array.prototype.slice.call(
+//   //       document.querySelectorAll(".results-per-page-number")
+//   //     )
+//   //   ]
+
+//   // // rotates filterByRegionArrow
+//   // filterByRegionLi.forEach(el => {
+//   //   el.addEventListener("click", function() {
+//   //     console.log("filter by region button / content selected")
+//   //     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
+//   //   })
+//   // })
+
+//   // // rotates resultsPerPageArrow
+//   // ResultsPerPageLi.forEach(el => {
+//   //   el.addEventListener("click", function() {
+//   //     console.log("results per page button / content selected")
+//   //     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
+//   //   })
+//   // })  
+// }
+// ////////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// ///////////////////////////////////////////////
 
 function selectFilterByRegionContent() {
   console.log("selectFilterByRegionContent() called")

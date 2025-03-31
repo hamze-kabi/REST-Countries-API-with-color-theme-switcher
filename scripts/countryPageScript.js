@@ -149,6 +149,7 @@ function darkMode() {
     const buttons = document.querySelectorAll("button")
     const goBackSection = document.getElementById("go-back-section")
     const country = document.getElementById("country")
+    const botton = document.getElementById("botton")
 
     buttons.forEach(button => {
       button.classList.toggle("dark-button")
