@@ -1,5 +1,6 @@
 "use strict";
 
+// variables declaration
 let countriesRaw;
 let selectedCountry;
 let countryName;
@@ -14,6 +15,7 @@ let languages;
 let borders;
 let darkModeState;
 
+// getting countries data from the link
 async function fetchData() {
   console.log("fetchData() called")
   try {
@@ -24,7 +26,7 @@ async function fetchData() {
     console.error("failed fetching data:", error)
   }
 }
-
+// calls fetchData()
 async function runFetchData() {
   console.log("runFetchData() called")
   countriesRaw = await fetchData()
@@ -33,7 +35,9 @@ async function runFetchData() {
   }
 }
 
+// extracts specifications of the country selected in index page  and dark mode state from local storage
 function extractLocalStorageData() {
+  console.log("extractLocalStorageData() called")
   countryName =  localStorage.getItem("countryName")
   flagImg =  localStorage.getItem("flagImg")
   population = localStorage.getItem("population")
@@ -52,8 +56,9 @@ function extractLocalStorageData() {
   }
 }
 
-
+// inserting details of selected country to their html code
 function insertCountryCardDetails() {
+  console.log("insertCountryCardDetails() called")
   document.getElementById("country-name").innerHTML = countryName
   document.getElementById("flag").src = flagImg
   document.getElementById("flag").alt = flagImg
@@ -73,16 +78,27 @@ function insertCountryCardDetails() {
   })
 }
 
+// changes title of page to country name
+function changePageTitle() {
+  console.log("changePageTitle called")
+  document.title = countryName
+}
+
+// find the selected border country from countriesRaw in order to extract its details
 function findSelectedCountry(border) {
+  console.log("findSelectedCountry() called")
   return countriesRaw.find(country => Object.values(country.name)[0] == border)
 }
 
+// self explainatory
 function clearLocalStorage() {
+  console.log("clearLocalStorage() called")
   localStorage.clear()
 }
 
-
+// saves details of selected border countries to local storage in order to be used in the next page
 function saveDataToLocalStorage() {
+  console.log("saveDataToLocalStorage() called")
   let country = selectedCountry
   try {
     nativeName = Object.values(country.name.nativeName)[0].common
@@ -136,7 +152,9 @@ function saveDataToLocalStorage() {
   window.location.href = "country-page.html"
 }
 
+// calls a series of functions when a border country is selected
 function goToBorderCountry() {
+  console.log("goToBorderCountry() called")
   document.querySelectorAll(".border").forEach(border => {
     border.addEventListener("click", async function() {
       border = border.innerHTML
@@ -148,8 +166,12 @@ function goToBorderCountry() {
   })
 }
 
+// changes style of page to dark and vice versa, wether dark mode button is clicked
+// or index page is dark
 function darkMode() {
+  console.log("darkMode() called")
   function loadPageInDarkMode() {
+    console.log("darkMode() => loadPageInDarkMode() called")
     const body = document.querySelector("body")
     const header = document.querySelector("header")
     const crescent_icon = document.getElementById("crescent-icon")
@@ -175,11 +197,12 @@ function darkMode() {
     }
   }
 
-  let zzzzzz = darkModeState
   if (darkModeState) {
+    // changes to dark style if index page is dark
     loadPageInDarkMode()
   }
   document.getElementById("dark-mode").addEventListener("click", function() {
+    // changes to dark style if dark mode button is clicked
     loadPageInDarkMode()
     if (darkModeState) {
       darkModeState = false
@@ -189,14 +212,33 @@ function darkMode() {
   })
 }
 
+// saves darkModeState to local storage, to be used in index.html
+function darkModeStateOfIndexPage() {
+  console.log("darkModeStateOfIndexPage() called")
+  localStorage.setItem("darkModeState", darkModeState)
+}
+
+// navigates page to index.html
 function backButton() {
+  console.log("backButton() called")
   document.getElementById("go-back-btn").addEventListener("click", function() {
-    window.history.back()
+    clearLocalStorage()
+    // retains dark mode state when navigated to index page
+    darkModeStateOfIndexPage()
+    window.location.href = "index.html"
   })
 }
 
-extractLocalStorageData()
-insertCountryCardDetails()
-goToBorderCountry()
-backButton()
-darkMode()
+// main function, starts the page
+function initializePage() {
+  console.log("initializePage() called")
+  extractLocalStorageData()
+  changePageTitle()
+  insertCountryCardDetails()
+  goToBorderCountry()
+  backButton()
+  darkMode()
+}
+
+// calling the main function
+initializePage()

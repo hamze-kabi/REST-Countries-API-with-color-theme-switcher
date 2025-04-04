@@ -137,12 +137,20 @@ function createCountryCard() {
 
 // changes style of pages from light to dark and vice versa, whech dark mode button is clicked
 function darkMode() {
-  document.getElementById("dark-mode").addEventListener("click", function() {
-    if (darkModeState) {
-      darkModeState = false
-    } else {
-      darkModeState = true
-    }
+  console.log("darkMode() called")
+  darkModeState = localStorage.getItem("darkModeState")
+  if (darkModeState == "true") {
+    darkModeState = true
+  } else {
+    darkModeState = false
+  }
+  if (darkModeState) {
+    applyDarkModeState()
+    highlightCurrentPage()
+  }
+
+  function applyDarkModeState() {
+    console.log("darkMode() => applyDarkModeState() called")
     const body = document.querySelector("body")
     const header = document.querySelector("header")
     const crescent_icon = document.getElementById("crescent-icon")
@@ -173,12 +181,22 @@ function darkMode() {
     } else {
       sun_icon.style.display = ""
     }
+  }
+
+  document.getElementById("dark-mode").addEventListener("click", function() {
+    applyDarkModeState()
+    if (darkModeState) {
+      darkModeState = false
+    } else {
+      darkModeState = true
+    }
     highlightCurrentPage()
   })
 }
 
 // when magnifying icon is clicked, seach field gets focused
 function magnifyingIconClickListener() {
+  console.log("magnifyingIconClickListener()")
   document.getElementById("magnify-icon").addEventListener("click", function() {
     document.getElementById("search-field").focus()
   })
@@ -195,6 +213,7 @@ function extractResultsPerPage() {
 
 // number of displayed page buttons  based on screen size
 function determineNumberOfPageButtons() {
+  console.log("determineNumberOfPageButtons() called")
   if (window.innerWidth < 450) {
     NumberOfPageButtons = 3
   } else if (window.innerWidth >= 450 && window.innerWidth < 800) {
@@ -351,6 +370,7 @@ function selectPage() {
 
 // currentPage resets to 1
 function resetCurrentPage() {
+  console.log("resetCurrentPage() called")
   currentPage = 1
 }
 
@@ -524,6 +544,7 @@ function totalNumberOfResults() {
 
 // its event listener is called when a new input is received by search input
 function extractSearch() {
+  console.log("extractSearch() called")  
   let searchField = document.getElementById("search-field")
   searchField.addEventListener("input", function() {
     searchedVal = searchField.value.toLowerCase()
@@ -533,6 +554,7 @@ function extractSearch() {
 
 // extracts countries based on searched value from countries object
 function extractCountriesBySearchedVal() {
+  console.log("extractCountriesBySearchedVal() called")  
   resetCountriesObj()
   filteredCountries = {}
   Object.entries(allCountries).forEach(country => {
@@ -544,6 +566,7 @@ function extractCountriesBySearchedVal() {
 
 // saves needed info of selected country and navigates page to clicked country page
 function goTocountryPage() {
+  console.log("goTocountryPage() called")
   document.querySelectorAll(".country-card").forEach(countryCard => {
     countryCard.addEventListener("click", function() {
     let countryName = countryCard.id
@@ -630,6 +653,7 @@ function managePaginate(state="") {
     paginate()
     totalNumberOfResults()
   } else if (state == "resize") {
+    console.log("managePaginate(state=), state = resize")
     determineNumberOfPageButtons()
     hideExtraPages();
   }
