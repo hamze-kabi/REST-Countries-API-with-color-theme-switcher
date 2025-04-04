@@ -146,7 +146,6 @@ function darkMode() {
   }
   if (darkModeState) {
     applyDarkModeState()
-    highlightCurrentPage()
   }
 
   function applyDarkModeState() {
@@ -164,7 +163,9 @@ function darkMode() {
     const dropdownContents = document.querySelectorAll(".dropdown-content")
 
     buttons.forEach(button => {
-      button.classList.toggle("dark-button")
+      const pageNumber = button.id.split('-').filter(part => !isNaN(part))[0];
+      if (pageNumber != currentPage)
+        button.classList.toggle("dark-button")
     })
 
     dropdownContents.forEach(dropdownContent => {
@@ -315,24 +316,25 @@ function clearPageNumbers() {
 // highlighs current page button, the color depends and status of dark mode
 function highlightCurrentPage() {
   console.log("highlightCurrentPage() called")
-  let highlightClass;
-
-  if (darkModeState) {
-    highlightClass = "darkHighlightCurrentPage"
-  } else {
-    highlightClass = "highlightCurrentPage"
-  }
 
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
   for (let i = 1; i <= numberOfPages; i++) {
     let el = document.getElementById(`page-${i}`)
     if (i == +currentPage) {
-      if (!el.classList.contains(highlightClass)) {
-        el.classList.add(highlightClass)
+      if (el.classList.contains("dark-button")) {
+        el.classList.remove("dark-button")
+      }
+      if (!el.classList.contains("highlightCurrentPage")) {
+        el.classList.add("highlightCurrentPage")
       }
     } else {
-      if (el.classList.contains(highlightClass)) {
-        el.classList.remove(highlightClass)
+      if (el.classList.contains("highlightCurrentPage")) {
+        el.classList.remove("highlightCurrentPage")
+      }
+      if (darkModeState) {
+        if (!el.classList.contains("dark-button")) {
+          el.classList.add("dark-button")
+        }
       }
     }
   }

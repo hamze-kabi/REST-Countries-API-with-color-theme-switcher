@@ -246,6 +246,7 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   min-width: 1rem;
+  cursor: pointer;
 }
 
 .hide {
@@ -253,7 +254,7 @@ button {
 }
 
 .highlightCurrentPage {
-  background-color:burlywood;
+  background-color: orangered;
 }
 
 #results {
@@ -308,10 +309,6 @@ button {
 .dark-button {
   background-color: #2B3844;
   color: white;  
-}
-
-.darkHighlightCurrentPage {
-  background-color: orangered;  
 }
 
 @media screen and (width < 500px) {

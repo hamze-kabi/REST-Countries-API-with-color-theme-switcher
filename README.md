@@ -1,6 +1,6 @@
-# Frontend Mentor - product list with cart page solution
+# Frontend Mentor - Memory game solution
 
-This is a solution to the [Meet landing page challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/product-list-with-cart-5MmqLVAp_d). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Memory game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/memory-game-vse4WFPvM). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
 ## Table of contents
 
@@ -15,12 +15,12 @@ This is a solution to the [Meet landing page challenge on Frontend Mentor](https
 
 ### Screenshot
 
-![https://github.com/hamze-kabi/product-list-with-cart/blob/main/screenshots/screenshots.jpg](https://github.com/hamze-kabi/product-list-with-cart/blob/main/screenshots/screenshots.jpg)
+![https://github.com/hamze-kabi/memory-game/blob/8bff806ffa42efdc2a9a5e6dad6d255302de684d/screenshots/memory-game-scrennshots-mixed.jpg](https://github.com/hamze-kabi/memory-game/blob/8bff806ffa42efdc2a9a5e6dad6d255302de684d/screenshots/memory-game-scrennshots-mixed.jpg)
 
 ### Links
 
-- Solution URL: [https://github.com/hamze-kabi/product-list-with-cart](https://github.com/hamze-kabi/product-list-with-cart)
-- Live Site URL: [https://hamze-kabi.github.io/product-list-with-cart/](https://hamze-kabi.github.io/product-list-with-cart/)
+- Solution URL: [index.html](index.html)
+- Live Site URL: [https://hamze-kabi.github.io/memory-game/](https://hamze-kabi.github.io/memory-game/)
 
 ## My process
 
@@ -31,7 +31,7 @@ This is a solution to the [Meet landing page challenge on Frontend Mentor](https
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- Load contents from json
+- Passing info usiing url
 
 ## Author
 
