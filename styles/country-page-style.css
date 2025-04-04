@@ -122,16 +122,21 @@ button {
     "flag country-name"
     "flag country-details"
     "flag border-countries";
+    grid-template-columns: 1fr 2fr;
     justify-content: space-around;
     align-items: center;
-    column-gap: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
-  
+
+  #flag {
+    margin-right: 3rem;
+  }
 }
 
 @media screen and (width > 775px) {
   #flag {
-    width: 35vw;
+    aspect-ratio: 3/2;
   }  
 }
 
