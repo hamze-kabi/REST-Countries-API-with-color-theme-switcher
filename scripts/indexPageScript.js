@@ -1,15 +1,21 @@
 "use strict";
 
-let countriesRaw;
+// variables decleration
+let countriesRaw; // the first, raw downloaded countries data
+// countains all countries, with some specific inforation of each country, gets populated in extractCountriesInfo()
 let allCountries = {}
-let countries = {}
+// if a filter is applied by user(search a country name, filtering by region), the resluting countries,
+// populate filteredCountries, otherwise it is remain null
 let filteredCountries = null;
+// the to be used countries in later function, whether filteredCountries(if not null), or allCountries
+let countries = {}
 let resultsPerPage;
 let currentPage = 1;
-let searchedVal = null;
+let searchedVal = null; // value written in search field
 let NumberOfPageButtons = 3
 let darkModeState = false
 
+// gets countries data from the link
 async function fetchData() {
   console.log("fetchData() called")
   try {
@@ -21,6 +27,7 @@ async function fetchData() {
   }
 }
 
+// calls fetchData() and intializeApp(), whenever countries data is ready, intializeApp() is called
 async function runFetchData() {
   console.log("runFetchData() called")
   countriesRaw = await fetchData()
@@ -30,9 +37,9 @@ async function runFetchData() {
   }
 }
 
+// extracts specific inforamtion related to each country from the main countries data
 function extractCountriesInfo() {
   console.log("extractCountriesInfo() called")
-  let deconstructedCapital;
   countriesRaw.forEach(country => {
     let nativeName;
     try {
@@ -70,7 +77,7 @@ function extractCountriesInfo() {
         }
       })
     }
-    // some seem extras
+
     allCountries[country.name.common] = {
       "Population": country.population, // some are 0
       "Region": country.region,
@@ -95,12 +102,15 @@ function selectCountriesObj() {
   }
 }
 
+// filteredCuntries becomes null, and countries become allCountries
 function resetCountriesObj() {
   console.log("resetCountriesObj() called")
   countries = allCountries
   filteredCountries = null
 }
 
+// country cards in the index.html, gets created dynamically, by adding related html codes, along with
+// information from countries object
 function createCountryCard() {
   console.log("createCountryCard() called")
   let countryCardsContainer = document.getElementById("country-cards-container")
@@ -125,7 +135,7 @@ function createCountryCard() {
 }
 
 
-///////////////////////////////////////////////
+// changes style of pages from light to dark and vice versa, whech dark mode button is clicked
 function darkMode() {
   document.getElementById("dark-mode").addEventListener("click", function() {
     if (darkModeState) {
@@ -167,6 +177,7 @@ function darkMode() {
   })
 }
 
+// when magnifying icon is clicked, seach field gets focused
 function magnifyingIconClickListener() {
   document.getElementById("magnify-icon").addEventListener("click", function() {
     document.getElementById("search-field").focus()
@@ -182,7 +193,7 @@ function extractResultsPerPage() {
   } 
 }
 
-
+// number of displayed page buttons  based on screen size
 function determineNumberOfPageButtons() {
   if (window.innerWidth < 450) {
     NumberOfPageButtons = 3
@@ -195,7 +206,7 @@ function determineNumberOfPageButtons() {
   }
 }
 
-// related to pages
+// creates all the page number buttons along with <<, prev, next and >>
 function createPagesNumbers() {
   console.log("createPageNumbers() called")
   const pages = document.getElementById("pages")
@@ -216,7 +227,7 @@ function createPagesNumbers() {
   hideExtraPages()
 }
 
-
+// current page button and a certain number of page buttons(based on numberOfPages) gets displayed, others get hidden
 function hideExtraPages() {
   console.log("hideExtraPages() called")
   const numberOfPages = Math.ceil(Object.entries(countries).length/resultsPerPage)
@@ -234,8 +245,6 @@ function hideExtraPages() {
   let toPush = []
   let toUnshift = []
   let toSplice = []
-  let temp1 = 0
-  let temp2 = 1
   for (let i of dispayedPagesNums) {
     if (i < 1) {
       if (toPush.length == 0) {
@@ -284,6 +293,7 @@ function clearPageNumbers() {
   document.querySelectorAll(".page-number").forEach(el => el.remove())
 }
 
+// highlighs current page button, the color depends and status of dark mode
 function highlightCurrentPage() {
   console.log("highlightCurrentPage() called")
   let highlightClass;
@@ -309,7 +319,7 @@ function highlightCurrentPage() {
   }
 }
 
-// self explainatory
+// detemines number of currentPage based on the click received by page buttons
 function selectPage() {
   console.log("selectPage() called")
   const pageNumbers = document.querySelectorAll(".page-number")
@@ -339,7 +349,7 @@ function selectPage() {
   })
 }
 
-// self explainatory
+// currentPage resets to 1
 function resetCurrentPage() {
   currentPage = 1
 }
@@ -354,6 +364,7 @@ function resetCountryCardsDisplay() {
 
 // devide country cards into different pages, based on the number of results per page
 function paginate() {
+  console.log("paginate() called")
   let lowerLimit = (currentPage - 1) * +resultsPerPage
   let upperLimit = currentPage * +resultsPerPage  
 
@@ -366,39 +377,7 @@ function paginate() {
   })
 }
 
-  // i think the reason Saint Kitts and Nevis card does not get displayed is becaise its name is consisted of several words
-  // and i use their words in class
-//   console.log("paginate() called")
-//   let lowerLimit = (currentPage - 1) * +resultsPerPage
-//   let upperLimit = currentPage * +resultsPerPage
-
-//   if (filteredCountries != null) {
-//     const countryCardsContainer = document.getElementById("country-cards-container")
-//     let i = 0
-//     Object.entries(countries).forEach(country => {
-//       if (lowerLimit <= i < upperLimit) {
-//         countryCardsContainer.querySelectorAll(`.${country[0]}`).forEach(countryCard => {
-//           countryCard.style.display = "block"
-//         })
-//       }
-//       i++
-//     })
-//   } else {
-//     for (let i = lowerLimit; i < upperLimit; i++) {
-//       try {
-//         document.getElementById(`country-card-${i}`).style.display = "block"
-//       } catch (error){
-//         console.log(error)
-//       }
-//     }  
-//   }
-    
-// }
-
-// Saint Kitts and Nevis
-// "Caribbean Netherlands"
-// "Saint Barthélemy"
-
+// displays or hides drop downs, based on user interactions
 function showHideDropdowns() {
   console.log("showHideDropdowns() called")  
 
@@ -444,7 +423,10 @@ function showHideDropdowns() {
   })
 }
 
+// rotates arrows insides dropdown buttons, based on the status of their dropdowns(open or closed)
+// setTimeout is written so that the function works properly, without it, it doesn't work well, I don't know why! 
 function rotateDropdownArrow(whichArrow="") {
+  console.log("rotateDropdownArrow() called")
   setTimeout(() => {
     if (whichArrow == "filter-by-region") {
       const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
@@ -482,170 +464,7 @@ function rotateDropdownArrow(whichArrow="") {
   }, 300)
 }
 
-  //   if (
-  //     (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px" && filterByRegionArrowOrientation == "down") ||
-  //     ((getComputedStyle(filterByRegionDropdownContentBlock).height == "0px" && filterByRegionArrowOrientation == "up"))
-  //   ) {
-  //     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
-  //     if (filterByRegionArrowOrientation == "down") {
-  //       filterByRegionArrowOrientation = "up"
-  //     } else {
-  //       filterByRegionArrowOrientation = "down"
-  //     }    
-  //   }
-  // } else if (whichArrow == "results-per-page") {
-  //   const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
-  //   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
-  //   console.log(11, getComputedStyle(resultsPerPageDropdownBlock).height, resultsPerPageArrow)
-  //   if (
-  //     (getComputedStyle(resultsPerPageDropdownBlock).height != "0px" && resultsPerPageArrowOrientation == "down") ||
-  //     (getComputedStyle(resultsPerPageDropdownBlock).height == "0px" && resultsPerPageArrowOrientation == "up")
-  //   ) {
-  //     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
-  //     if (resultsPerPageArrowOrientation == "down") {
-  //       resultsPerPageArrowOrientation = "up"
-  //     } else {
-  //       resultsPerPageArrowOrientation = "down"
-  //     }
-  //   }
-
-
-// ////////////////////////////////////////////////
-// ///////////////////////////////////////////////
-// ///////////////////////////////////////////////
-// // following buttons when clicked dropdown drops and when clicked again, dropdown hides
-// function showHideDropdowns() {
-//   console.log("showHideDropdowns() called")
-
-//   const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
-//   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
-
-//   function showHideFilterByRegionDropdownContentBlock(onlyHide=false) {
-//     if (onlyHide) {
-//       if (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px") {
-//         filterByRegionDropdownContentBlock.style.height = "0px"
-//         filterByRegionDropdownContentBlock.style.padding = "0px"              
-//       }
-//     } else {
-//       if (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px") {
-//         filterByRegionDropdownContentBlock.style.height = filterByRegionDropdownContentBlock.scrollHeight + 'px'
-//         filterByRegionDropdownContentBlock.style.padding = "0.5rem 0 0.5rem"
-//       } else {
-//         filterByRegionDropdownContentBlock.style.height = "0px"
-//         filterByRegionDropdownContentBlock.style.padding = "0px"        
-//       }
-//     }
-//   }
-
-//   function showHideResultsPerPageDropdownBlock(onlyHide=false) {
-//     if (onlyHide) {
-//       if (getComputedStyle(resultsPerPageDropdownBlock).height != "0px") {
-//          resultsPerPageDropdownBlock.style.height = "0px"
-//         resultsPerPageDropdownBlock.style.padding = "0px"        
-//       }
-//     } else {
-//       if (getComputedStyle(resultsPerPageDropdownBlock).height == "0px") {
-//         resultsPerPageDropdownBlock.style.height = resultsPerPageDropdownBlock.scrollHeight + 'px'
-//         resultsPerPageDropdownBlock.style.padding = "0.5rem 0 0.5rem"
-//       } else {
-//         resultsPerPageDropdownBlock.style.height = "0px"
-//         resultsPerPageDropdownBlock.style.padding = "0px"
-//       }
-//     }
-//   }
-
-//   document.addEventListener("click", function(event) {
-//     if (event.target.closest("#filter-by-region-btn")) {
-//       showHideFilterByRegionDropdownContentBlock()
-//     } else {
-//       showHideFilterByRegionDropdownContentBlock(true)
-//     }
-//     rotateDropdownArrow()
-//   })
-
-//   // results-per-page-btn
-//   document.addEventListener("click", function(event) {
-//     if (event.target.closest("#results-per-page-btn")) {
-//       showHideResultsPerPageDropdownBlock()      
-//     } else {
-//       showHideResultsPerPageDropdownBlock(true)
-//     }
-//     rotateDropdownArrow()
-//   })
-// }
-
-// // rotates arrows of dropdown buttons
-// function rotateDropdownArrow() {
-//   console.log("rotateDropdownArrow() called")
-//   const filterByRegionArrow = document.getElementById("filter-by-region-arrow")
-//   const resultsPerPageArrow = document.getElementById("resultsper-page-arrow")
-//   const filterByRegionDropdownContentBlock = document.getElementById("filter-by-region-dropdown-content-block")
-//   const resultsPerPageDropdownBlock = document.getElementById("results-per-page-dropdown-block")
-//   console.log(getComputedStyle(filterByRegionDropdownContentBlock).height, filterByRegionArrowOrientation)
-//   console.log(getComputedStyle(resultsPerPageDropdownBlock).height, resultsPerPageArrowOrientation)
-//   if (
-//     (getComputedStyle(filterByRegionDropdownContentBlock).height == "0px" && filterByRegionArrowOrientation == "up") ||
-//     (getComputedStyle(filterByRegionDropdownContentBlock).height != "0px" && filterByRegionArrowOrientation == "down")
-//   ) {
-//     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
-//     if (filterByRegionArrowOrientation == "down") {
-//       filterByRegionArrowOrientation == "up"
-//     } else {
-//       filterByRegionArrowOrientation == "down"
-//     }
-//   }
-//   if (
-//     (getComputedStyle(resultsPerPageDropdownBlock).height == "0px" && resultsPerPageArrowOrientation == "up") ||
-//     (getComputedStyle(resultsPerPageDropdownBlock).height != "0px" && resultsPerPageArrowOrientation == "down")
-//   ) {
-//     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate") 
-//     if (resultsPerPageArrowOrientation == "down") {
-//       resultsPerPageArrowOrientation == "up"
-//     } else {
-//       resultsPerPageArrowOrientation == "down"
-//     }
-//   }
-//   // if (whichArrow == "filter-by-region") {
-//   //   filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
-//   // } else if (whichArrow == "results-per-page") {
-//   //   resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
-//   // }
-//   // // following elements when clicked filterByRegionArrow gets rotated
-//   // const filterByRegionLi = [
-//   //   document.getElementById("filter-by-region-btn"),
-//   //     ...Array.prototype.slice.call(
-//   //       document.querySelectorAll(".filter-by-region-dropdown-content")
-//   //     )
-//   //   ]
-
-//   //   // following elements when clicked resultsPerPageArrow gets rotated
-//   //   const ResultsPerPageLi = [
-//   //     document.getElementById("results-per-page-btn"),
-//   //     ...Array.prototype.slice.call(
-//   //       document.querySelectorAll(".results-per-page-number")
-//   //     )
-//   //   ]
-
-//   // // rotates filterByRegionArrow
-//   // filterByRegionLi.forEach(el => {
-//   //   el.addEventListener("click", function() {
-//   //     console.log("filter by region button / content selected")
-//   //     filterByRegionArrow.classList.toggle("dropdown-arrow-rotate")
-//   //   })
-//   // })
-
-//   // // rotates resultsPerPageArrow
-//   // ResultsPerPageLi.forEach(el => {
-//   //   el.addEventListener("click", function() {
-//   //     console.log("results per page button / content selected")
-//   //     resultsPerPageArrow.classList.toggle("dropdown-arrow-rotate")
-//   //   })
-//   // })  
-// }
-// ////////////////////////////////////////////////
-// ///////////////////////////////////////////////
-// ///////////////////////////////////////////////
-
+// is called when a new filter by region value is selected
 function selectFilterByRegionContent() {
   console.log("selectFilterByRegionContent() called")
   let dropdownContent = document.querySelectorAll(".filter-by-region-dropdown-content")
@@ -663,7 +482,7 @@ function selectFilterByRegionContent() {
   })
 }
 
-
+// is called when a new results per page value is selected
 function selectResultsPerPageContent() {
   console.log("selectResultsPerPageContent() called")
   const resultsPerPageNumber = document.querySelectorAll(".results-per-page-number")
@@ -703,6 +522,7 @@ function totalNumberOfResults() {
   totalNumberEl.innerHTML = totalNumber
 }
 
+// its event listener is called when a new input is received by search input
 function extractSearch() {
   let searchField = document.getElementById("search-field")
   searchField.addEventListener("input", function() {
@@ -711,7 +531,7 @@ function extractSearch() {
   })
 }
 
-// search function
+// extracts countries based on searched value from countries object
 function extractCountriesBySearchedVal() {
   resetCountriesObj()
   filteredCountries = {}
@@ -722,6 +542,7 @@ function extractCountriesBySearchedVal() {
   })
 }
 
+// saves needed info of selected country and navigates page to clicked country page
 function goTocountryPage() {
   document.querySelectorAll(".country-card").forEach(countryCard => {
     countryCard.addEventListener("click", function() {
@@ -752,34 +573,10 @@ function goTocountryPage() {
   })
 }
 
-
-// "Population": country.population, // some are 0
-// "Region": country.region,
-// "Capital": country.capital, // some have more than one
-// "flag": country.flags.png,
-// "native-name": nativeName,
-// "subregion": subRegion,
-// "currencies": currencies,
-// "languages": languages,
-
-
-// const queryString = `?theme=${encodeURIComponent(theme)}&numberOfPlayers=${encodeURIComponent(numberOfPlayers)}&gridSize=${encodeURIComponent(gridSize)}`
-// window.location.href = "gamepage.html" + queryString  //  parameters get passed with url to the next page
-// gets settings parameters sent by index.html
-
-
-
-
-// createCountryCard()
-// extractResultsPerPage()
-// createPagesNumbers()
-// clearPageNumbers()
-// selectPage()
-// resetCountryCardsDisplay()
-// paginate()
-// selectResultsPerPageContent()
-// selectFilterByRegionContent()
-
+// one of manager function that manages to be results based on the state of page or activity of user
+// such as: when the page is getting started, when a page number button is clecked,
+// when a new filter by region value is selected, when a new results per page value is selected
+// when user is searching a countries name or when the screen is resized
 function managePaginate(state="") {
   console.log("managePaginate() called")
   if (state == "start") {
@@ -844,14 +641,8 @@ function initializeApp() {
   console.log("initializeApp() called")
   extractCountriesInfo()
   createCountryCard()
-
   managePaginate("start")
   selectPage()
-  // extractResultsPerPage()
-  // createPagesNumbers()
-  // selectPage()
-  // paginate()
-
   rotateDropdownArrow()
   showHideDropdowns()
   selectFilterByRegionContent()
