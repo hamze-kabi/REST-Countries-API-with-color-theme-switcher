@@ -1,6 +1,6 @@
 # Frontend Mentor - Memory game solution
 
-This is a solution to the [Memory game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/memory-game-vse4WFPvM). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
 ## Table of contents
 
@@ -15,7 +15,7 @@ This is a solution to the [Memory game challenge on Frontend Mentor](https://www
 
 ### Screenshot
 
-![https://github.com/hamze-kabi/memory-game/blob/8bff806ffa42efdc2a9a5e6dad6d255302de684d/screenshots/memory-game-scrennshots-mixed.jpg](https://github.com/hamze-kabi/memory-game/blob/8bff806ffa42efdc2a9a5e6dad6d255302de684d/screenshots/memory-game-scrennshots-mixed.jpg)
+![screenshot.jpg](screenshot.jpg)
 
 ### Links
 
