@@ -20,7 +20,7 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 ### Links
 
 - Solution URL: [index.html](index.html)
-- Live Site URL: [https://hamze-kabi.github.io/memory-game/](https://hamze-kabi.github.io/memory-game/)
+- Live Site URL: [https://hamze-kabi.github.io/REST-Countries-API-with-color-theme-switcher/](https://hamze-kabi.github.io/REST-Countries-API-with-color-theme-switcher/)
 
 ## My process
 
@@ -31,7 +31,8 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- Passing info usiing url
+- Passing data using Local Storage
+- Using REST API to access needed data
 
 ## Author
 
