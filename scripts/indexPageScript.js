@@ -19,7 +19,7 @@ let darkModeState = false
 async function fetchData() {
   console.log("fetchData() called")
   try {
-    const response = await fetch("errererere")
+    const response = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital,currencies,subregion,languages,borders,cca3")
     const jsoned = await response.json()
     return jsoned  
   } catch(error) {
